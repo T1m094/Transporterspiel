@@ -7,7 +7,7 @@ from Settings import screen
 clock = pygame.time.Clock()
 
 def spielStart():
-    lkw = Vehicle.Lkw()
+    lkw = Vehicle.Truck()
     # solange die Variable True ist, soll das Spiel laufen
     gameActiv = True
 
