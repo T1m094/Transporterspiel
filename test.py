@@ -1,7 +1,11 @@
 import math
 
 import pygame
+import Settings
 
+class ort:
+
+    def __i
 
 def blitRotate(surf, image, pos, originPos, angle):
     # offset from pivot to center
@@ -21,15 +25,18 @@ def blitRotate(surf, image, pos, originPos, angle):
     # rotate and blit the image
     surf.blit(rotated_image, rotated_image_rect)
 
+    # V FOR DEBUG v
     # draw rectangle around the image
-    #pygame.draw.rect(surf, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
-    #pygame.draw.line(screen, (0, 255, 0), (pos[0]-20, pos[1]), (pos[0]+20, pos[1]), 3)
-    #pygame.draw.line(screen, (0, 255, 0), (pos[0], pos[1]-20), (pos[0], pos[1]+20), 3)
-    #pygame.draw.circle(screen, (0, 255, 0), pos, 7, 0)
+    if(Settings.debug):
+        pygame.draw.rect(surf, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
+        pygame.draw.line(screen, (0, 255, 0), (pos[0]-20, pos[1]), (pos[0]+20, pos[1]), 3)
+        pygame.draw.line(screen, (0, 255, 0), (pos[0], pos[1]-20), (pos[0], pos[1]+20), 3)
+        pygame.draw.circle(screen, (0, 255, 0), pos, 7, 0)
+    # ^ FOR DEBUG ^
 
 
 pygame.init()
-screen = pygame.display.set_mode((1000, 1000))
+screen = pygame.display.set_mode((1900, 1000))
 clock = pygame.time.Clock()
 
 
@@ -91,7 +98,7 @@ while not done:
     car_y -= car_dy
 
     # Auto-Bild rotieren
-    rotated_car_image = blitRotate(screen, image, (car_x, car_y), (image.get_width()/2, image.get_height()/2), car_angle)
+    blitRotate(screen, image, (car_x, car_y), ((image.get_width()/2), (image.get_height()/2)), car_angle)
 
     # Auto-Bild zeichnen
     print(car_x, car_y)
