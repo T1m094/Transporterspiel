@@ -12,22 +12,14 @@ def spielStart():
     gameActiv = True
 
     while gameActiv:
-
-        #######################################
-        #       Steuerung LKW  Tastatur       #
-        ######################################
-
-        # Überprüfe den Status aller Tasten
-        keys = pygame.key.get_pressed()
-
-
         # Exit
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 gameActiv = False
                 print("Spieler hat Quit-Button angeklickt")
 
-        lkw.drive(keys)
+        #lkw.drive()
+        lkw.driveWithMouse()
         # Spielfeld löschen
 
         # Spielfeld/figuren zeichnen

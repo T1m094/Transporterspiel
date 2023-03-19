@@ -5,10 +5,10 @@ import pygame
 import Settings
 
 # Eigenschaften LKW
-maxAngleSpeed = 5
-maxSpeedForward = 10
+maxAngleSpeed = 2
+maxSpeedForward = 20
 maxSpeedBackward = 5
-speedUp = 0.25
+speedUp = 0.1
 maxloadedQuantity = 10
 maxFuelLevel = 10
 
@@ -25,7 +25,7 @@ class Truck:
 
     def __init__(self):
         self.basePosition = 0
-        self.currentPosition = [0,0]
+        self.currentPosition = [200,200]
         self.angle = 0 # Min 0 Max 360  Oben=0 Links=90 unten=180 rechts=270
         self.maxSpeedForward = maxSpeedForward
         self.maxSpeedBackward = maxSpeedBackward
@@ -45,12 +45,60 @@ class Truck:
         #Bild Mitte
         self.imageCenterPoint =[(self.image.get_width()/2),(self.image.get_height()/2)]
 
+    def driveWithMouse(self):
+        #######################################
+        #       Steuerung LKW  Mouse          #
+        #######################################
+
+        # Mouse Informationen
+        mousePos = pygame.mouse.get_pos()
+        mouseLeftClick = pygame.mouse.get_pressed()[0]
+        mouseRightClick =  pygame.mouse.get_pressed()[2]
+
+        print(mousePos, " ", mouseLeftClick, " ", mouseRightClick)
+
+        # Vorwärts Rückwerts fahren
+        if mouseLeftClick:
+            if (Settings.debug):
+                print("Hoch")
+            self.currentSpeed += self.speedUp
+            if (self.currentSpeed >= self.maxSpeedForward):
+                self.currentSpeed = self.maxSpeedForward
+        elif mouseRightClick:
+            if (Settings.debug):
+                print("Runter")
+            self.currentSpeed = -self.maxSpeedBackward
+        else:
+            self.currentSpeed = 0
+
+        #Winkel berechnen
+        delta_x = mousePos[0]- self.currentPosition[0]
+        delta_y = mousePos[1] -self.currentPosition[1]
+        if (Settings.debug):
+         pygame.draw.aaline(Settings.screen, (0, 255, 0), self.currentPosition, mousePos)
+
+
+        self.angle =  - math.degrees(math.atan2(delta_y, delta_x))
+        print(self.angle)
+
+
+
+        # Bewegungsvektor des Autos berechnen
+        car_dx = self.currentSpeed  * math.cos(math.radians(self.angle))
+        car_dy = self.currentSpeed  * math.sin(math.radians(self.angle))
+
+        # Position des Autos aktualisieren
+        self.currentPosition[0] += car_dx
+        self.currentPosition[1] -= car_dy
+        self.steerVehicle()
+        pass
     # Fahren/ Sprit verbrauchen
-    def drive(self, keys):
+    def drive(self):
         #######################################
         #       Steuerung LKW  Tastatur       #
-        ######################################
-
+        #######################################
+        # Überprüfe den Status aller Tasten
+        keys = pygame.key.get_pressed()
         # Lenken
         if keys[pygame.K_LEFT]:
             if (Settings.debug):
