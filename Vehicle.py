@@ -21,7 +21,7 @@ maxloadedQuantity = 0
 maxFuelLevel = 0
 '''
 
-class Lkw:
+class Truck:
 
     def __init__(self):
         self.basePosition = 0
