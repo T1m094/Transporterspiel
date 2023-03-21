@@ -3,9 +3,6 @@ import math
 import pygame
 import Settings
 
-class ort:
-
-    def __i
 
 def blitRotate(surf, image, pos, originPos, angle):
     # offset from pivot to center
@@ -36,7 +33,7 @@ def blitRotate(surf, image, pos, originPos, angle):
 
 
 pygame.init()
-screen = pygame.display.set_mode((1900, 1000))
+screen = pygame.display.set_mode()
 clock = pygame.time.Clock()
 
 
@@ -47,7 +44,11 @@ image = pygame.image.load(image_path)
 image = pygame.transform.scale(image, (200, 200))
 image = pygame.transform.rotate(image, -90)
 
+#BG
 
+imageBg = pygame.image.load("./scr/img/BG.png")
+imageBg = pygame.transform.scale(imageBg, ( screen.get_width(), screen.get_height()))
+print(( screen.get_width(), screen.get_height()))
 # Auto-Position und Winkel
 car_x = (screen.get_width()/2)
 car_y = (screen.get_height()/2)
@@ -62,6 +63,8 @@ w, h = image.get_size()
 done = False
 while not done:
     clock.tick(60)
+    # Hintergrundbild zeichnen
+    screen.blit(imageBg, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -101,7 +104,7 @@ while not done:
     blitRotate(screen, image, (car_x, car_y), ((image.get_width()/2), (image.get_height()/2)), car_angle)
 
     # Auto-Bild zeichnen
-    print(car_x, car_y)
+   # print(car_x, car_y)
    # screen.blit(rotated_car_image, (car_x, car_y))
 
     pygame.display.flip()

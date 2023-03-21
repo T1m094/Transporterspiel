@@ -1,5 +1,7 @@
 # Schleife Hauptprogramm
 import pygame
+
+import Places
 import Vehicle
 from Settings import screen
 
@@ -8,6 +10,7 @@ clock = pygame.time.Clock()
 
 def spielStart():
     lkw = Vehicle.Truck()
+    tankstelle = Places.GasStation()
     # solange die Variable True ist, soll das Spiel laufen
     gameActiv = True
 
@@ -18,8 +21,13 @@ def spielStart():
                 gameActiv = False
                 print("Spieler hat Quit-Button angeklickt")
 
-        #lkw.drive()
-        lkw.driveWithMouse()
+
+        tankstelle.draw()
+        tankstelle.checkRefuels(lkw)
+        #lkw.driveWithMouse()
+        lkw.drive()
+
+        print(tankstelle, lkw)
         # Spielfeld löschen
 
         # Spielfeld/figuren zeichnen

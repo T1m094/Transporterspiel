@@ -6,6 +6,7 @@ screen = pygame.display.set_mode()
 
 debug = True
 
+debugPrints = False
 
 
 

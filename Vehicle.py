@@ -5,12 +5,12 @@ import pygame
 import Settings
 
 # Eigenschaften LKW
-maxAngleSpeed = 2
 maxSpeedForward = 20
 maxSpeedBackward = 5
 speedUp = 0.1
-maxloadedQuantity = 10
-maxFuelLevel = 10
+maxAngleSpeed = 0.25
+maxFuelLevel = 1000
+maxLoadedQuantity = 10
 
 '''
 # Eigenschaften Hubschrauber
@@ -26,14 +26,20 @@ class Truck:
     def __init__(self):
         self.basePosition = 0
         self.currentPosition = [200,200]
-        self.angle = 0 # Min 0 Max 360  Oben=0 Links=90 unten=180 rechts=270
+
         self.maxSpeedForward = maxSpeedForward
         self.maxSpeedBackward = maxSpeedBackward
         self.speedUp = speedUp
         self.currentSpeed = 0
-        self.angleSpeed = 0
-        self.fuelLevel = 0
-        self.loadedQuantity = 0
+
+        self.angle = 0 # Min 0 Max 360  Oben=0 Links=90 unten=180 rechts=270
+        self.angleSpeed = maxAngleSpeed
+
+        self.maxFuelLevel = maxFuelLevel
+        self.currentFuelLevel = 0
+
+        self.maxLoadedQuantity = maxLoadedQuantity
+        self.currentLoadedQuantity = 0
 
         #Bild
         # Bild laden
@@ -44,29 +50,23 @@ class Truck:
         self.image = pygame.transform.scale(image, (200, 200))
         #Bild Mitte
         self.imageCenterPoint =[(self.image.get_width()/2),(self.image.get_height()/2)]
+        self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
 
+    #######################################
+    #       Steuerung LKW  Mouse          #
+    #######################################
     def driveWithMouse(self):
-        #######################################
-        #       Steuerung LKW  Mouse          #
-        #######################################
-
         # Mouse Informationen
         mousePos = pygame.mouse.get_pos()
         mouseLeftClick = pygame.mouse.get_pressed()[0]
         mouseRightClick =  pygame.mouse.get_pressed()[2]
 
-        print(mousePos, " ", mouseLeftClick, " ", mouseRightClick)
-
         # Vorwärts Rückwerts fahren
         if mouseLeftClick:
-            if (Settings.debug):
-                print("Hoch")
             self.currentSpeed += self.speedUp
-            if (self.currentSpeed >= self.maxSpeedForward):
+            if self.currentSpeed >= self.maxSpeedForward:
                 self.currentSpeed = self.maxSpeedForward
         elif mouseRightClick:
-            if (Settings.debug):
-                print("Runter")
             self.currentSpeed = -self.maxSpeedBackward
         else:
             self.currentSpeed = 0
@@ -74,14 +74,11 @@ class Truck:
         #Winkel berechnen
         delta_x = mousePos[0]- self.currentPosition[0]
         delta_y = mousePos[1] -self.currentPosition[1]
-        if (Settings.debug):
+        if Settings.debug:
          pygame.draw.aaline(Settings.screen, (0, 255, 0), self.currentPosition, mousePos)
 
 
         self.angle =  - math.degrees(math.atan2(delta_y, delta_x))
-        print(self.angle)
-
-
 
         # Bewegungsvektor des Autos berechnen
         car_dx = self.currentSpeed  * math.cos(math.radians(self.angle))
@@ -91,38 +88,29 @@ class Truck:
         self.currentPosition[0] += car_dx
         self.currentPosition[1] -= car_dy
         self.steerVehicle()
-        pass
+
     # Fahren/ Sprit verbrauchen
+    #######################################
+    #       Steuerung LKW  Tastatur       #
+    #######################################
     def drive(self):
-        #######################################
-        #       Steuerung LKW  Tastatur       #
-        #######################################
         # Überprüfe den Status aller Tasten
         keys = pygame.key.get_pressed()
         # Lenken
         if keys[pygame.K_LEFT]:
-            if (Settings.debug):
-                print("Left")
             self.angleSpeed = maxAngleSpeed
         elif keys[pygame.K_RIGHT]:
-            if (Settings.debug):
-                print("Right")
             self.angleSpeed = -maxAngleSpeed
         else:
             self.angleSpeed = 0
 
         # Vorwärts Rückwerts fahren
         if keys[pygame.K_UP]:
-            if (Settings.debug):
-                print("Hoch")
             self.currentSpeed += self.speedUp
             if( self.currentSpeed >= self.maxSpeedForward):
                 self.currentSpeed = self.maxSpeedForward
 
-
         elif keys[pygame.K_DOWN]:
-            if (Settings.debug):
-                print("Runter")
             self.currentSpeed = -self.maxSpeedBackward
         else:
             self.currentSpeed = 0
@@ -152,15 +140,15 @@ class Truck:
 
         # gedrehtes Bild erhalten
         rotated_image = pygame.transform.rotate(self.image, self.angle)
-        rotated_image_rect = rotated_image.get_rect(center=rotated_image_center)
+        self.rotated_image_rect = rotated_image.get_rect(center=rotated_image_center)
 
-        # Zeichen
-        Settings.screen.blit(rotated_image, rotated_image_rect)
+        # Zeichen und updaten
+        Settings.screen.blit(rotated_image, self.rotated_image_rect)
 
         # V FOR DEBUG v
         # Hilfslienen
         if (Settings.debug):
-            pygame.draw.rect(Settings.screen, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
+            pygame.draw.rect(Settings.screen, (255, 0, 0), (*self.rotated_image_rect.topleft, *rotated_image.get_size()), 2)
             pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0] - 20, self.currentPosition[1]), (self.currentPosition[0] + 20, self.currentPosition[1]), 3)
             pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0], self.currentPosition[1] - 20), (self.currentPosition[0], self.currentPosition[1] + 20), 3)
             pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)
@@ -168,10 +156,10 @@ class Truck:
 
     # Erz laden
     def loadOre(self):
-        pass
+        self.currentLoadedQuantity = self.maxLoadedQuantity
     # Erz entladen
     def uploadOre(self):
-        pass
+        self.currentLoadedQuantity = 0
 
     # Erz laden
     def loadOre(self):
@@ -179,13 +167,18 @@ class Truck:
 
     # Tanken
     def refuel(self):
-        pass
+        if self.currentFuelLevel < self.maxFuelLevel:
+            print("Tankenanzeige: ", self.currentFuelLevel)
+            self.currentFuelLevel += 1
 
 
     # Zeichen
-    def show(self, screen):
-        screen.blit(self.scaled_image, (0, 0))
-        pass
+    def show(self, rotated_image):
+        Settings.screen.blit(self.scaled_image, (0, 0))
+        #Rechteck aktuallisieren
+        self.rec = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
+        pygame.draw.rect(Settings.screen, (0, 0, 255), self.rec, 2)
+
 '''
 class Lkw(Vehicle):
     # Bild laden
