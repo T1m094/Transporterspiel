@@ -11,6 +11,7 @@ speedUp = Settings.speedUp
 maxAngleSpeed = Settings.maxAngleSpeed
 maxLoadedQuantity = Settings.maxLoadedQuantity
 maxFuelLevel = 100
+fuelConsumption = -1
 
 '''
 # Eigenschaften Hubschrauber
@@ -158,6 +159,9 @@ class Truck:
             pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0], self.currentPosition[1] - 20), (self.currentPosition[0], self.currentPosition[1] + 20), 3)
             pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)
         # ^ FOR DEBUG ^
+    # Spritt verbrauchen
+    def fuelConsumption(self):
+        self.currentFuelLevel -= fuelConsumption
 
     # Erz entladen
     def uploadOre(self):
