@@ -137,6 +137,7 @@ class Helicopter(Vehicle):
             self.currentSpeed += self.speedUp
             if self.currentSpeed >= self.maxSpeedForward:
              self.currentSpeed = self.maxSpeedForward
+             self.fuelConsumption()
         else:
             self.currentSpeed = 0
 

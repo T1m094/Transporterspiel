@@ -33,7 +33,7 @@ fuelConsumptionHeli = 0.1
 debugInfoColor = (0,255,0)
 debug = True
 
-debugPrints = False
+debugPrints = True
 
 
 def printDebugInfo(*args):
