@@ -42,21 +42,24 @@ def spielStart():
                 if event.key == pygame.K_CARET:
                     if Settings.debugPrints:
                         Settings.debugPrints = False
+                        Settings.debug = False
                     else:
                         Settings.debugPrints = True
+                        Settings.debug = True
+
 
         # Orte
         # Tankstelle
-        #tankstelle.draw()
-        #tankstelle.checkRefuels(lkw)
+        tankstelle.draw()
+        tankstelle.checkRefuels(lkw)
 
         # Erz Miene
-        #erzMine.draw()
-        #erzMine.checkLoad(lkw)
+        erzMine.draw()
+        erzMine.checkLoad(lkw)
 
         # LKW Ziel
-        #lkwZiel.draw()
-        #win = lkwZiel.checkUnload(lkw)
+        lkwZiel.draw()
+        win = lkwZiel.checkUnload(lkw)
 
         # Helicopter Base
         helicopterBase.draw()
@@ -66,7 +69,7 @@ def spielStart():
         # Fahrzeuge
 
         # LKW
-        # lkw.driveWithMouse()
+        #lkw.driveWithMouse()
         tankFull = lkw.drive()
 
         # Heli
