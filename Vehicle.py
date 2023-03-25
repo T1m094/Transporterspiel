@@ -10,7 +10,7 @@ maxSpeedBackward = 5
 speedUp = 0.5
 maxAngleSpeed = 2
 maxFuelLevel = 1000
-maxLoadedQuantity = 10
+maxLoadedQuantity = 20
 
 '''
 # Eigenschaften Hubschrauber
@@ -159,26 +159,19 @@ class Truck:
             pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)
         # ^ FOR DEBUG ^
 
-    # Erz laden
-    def loadOre(self):
-        self.currentLoadedQuantity = self.maxLoadedQuantity
     # Erz entladen
     def uploadOre(self):
-        self.currentLoadedQuantity = 0
+        if self.currentLoadedQuantity > 0:
+            self.currentLoadedQuantity -= 1
 
-    # Erz laden
+    # Erz aufladen
     def loadOre(self):
-        self.maxLoadedQuantity = maxLoadedQuantity
-        self.currentLoadedQuantity = 0
-
         if self.currentLoadedQuantity < self.maxLoadedQuantity:
-            print("Laden: ", self.currentLoadedQuantity)
             self.currentLoadedQuantity += 1
 
     # Tanken
     def refuel(self):
         if self.currentFuelLevel < self.maxFuelLevel:
-            print("Tankenanzeige: ", self.currentFuelLevel)
             self.currentFuelLevel += 1
 
 

@@ -11,8 +11,12 @@ clock = pygame.time.Clock()
 
 
 def spielStart():
-    lkw = Vehicle.Truck()
+
     tankstelle = Places.GasStation()
+    erzMine = Places.oreMine()
+    lkwZiel = Places.truckDestination()
+    lkw = Vehicle.Truck()
+
     # solange die Variable True ist, soll das Spiel laufen
     gameActiv = True
 
@@ -29,11 +33,25 @@ def spielStart():
                     else:
                         Settings.debugPrints = True
 
+        # Tankstelle
         tankstelle.draw()
         tankstelle.checkRefuels(lkw)
-        lkw.driveWithMouse()
-        #lkw.drive()
-        Settings.printDebugInfo(lkw.debugPrinterArry())
+
+        # Erz Miene
+        erzMine.draw()
+        erzMine.checkLoad(lkw)
+
+        # LKW Ziel
+        lkwZiel.draw()
+        lkwZiel.checkUnload(lkw)
+
+        # LKW
+        # lkw.driveWithMouse()
+        lkw.drive()
+
+        # DEBUGGER
+        if Settings.debugPrints:
+            Settings.printDebugInfo(lkw.debugPrinterArry(), erzMine.debugPrinterArry(), lkwZiel.debugPrinterArry())
 
         # Spielfeld löschen
 
