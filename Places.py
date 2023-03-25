@@ -8,7 +8,7 @@ colorGreen = (0, 255, 0)
 thresholdToWin = 80
 class GasStation:
     def __init__(self):
-        self.pos = (20,(Settings.screen.get_height()/2) -100)
+        self.pos = [20,((Settings.screen.get_height()/2) -100)]
         self.size = (500,500)
         self.rec = pygame.Rect(self.pos, self.size)
 
@@ -124,6 +124,7 @@ class helicopterBase:
         self.pos = ((Settings.screen.get_height()/2) + 850, 350)
         self.size = (400,400)
         self.rec = pygame.Rect(self.pos, self.size)
+
         self.percentOre = 0
     def draw(self):
         pygame.draw.rect(Settings.screen, (255,0,255), self.rec, 2)
@@ -133,6 +134,12 @@ class helicopterBase:
             if vehicle.currentLoadedQuantity > 0:
                 vehicle.uploadOre()
                 self.percentOre += 1
+
+    def checkIfInBase(self, vehicle):
+        if self.rec.contains(vehicle.rotated_image_rect):
+            vehicle.currentFuelLevel = 100
+
+
     # Debug info truckDestination
     def debugPrinterArry(self):
         infoHelicopterBase = []

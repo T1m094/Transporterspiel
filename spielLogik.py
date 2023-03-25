@@ -3,7 +3,8 @@ import pygame
 
 import Places
 import Settings
-import Vehicle
+import Truck
+import Helicopter
 from Settings import screen
 
 # Bildschirm Aktualisierungen einstellen
@@ -19,8 +20,8 @@ def spielStart():
     helicopterBase = Places.helicopterBase()
 
     #Fahrzeuge
-    lkw = Vehicle.Truck()
-    heli = Vehicle.Helicopter()
+    lkw = Truck.Truck()
+    heli = Helicopter.Helicopter(helicopterBase)
 
     # Spielstand
     win = False
@@ -46,19 +47,20 @@ def spielStart():
 
         # Orte
         # Tankstelle
-        tankstelle.draw()
-        tankstelle.checkRefuels(lkw)
+        #tankstelle.draw()
+        #tankstelle.checkRefuels(lkw)
 
         # Erz Miene
-        erzMine.draw()
-        erzMine.checkLoad(lkw)
+        #erzMine.draw()
+        #erzMine.checkLoad(lkw)
 
         # LKW Ziel
-        lkwZiel.draw()
-        win = lkwZiel.checkUnload(lkw)
+        #lkwZiel.draw()
+        #win = lkwZiel.checkUnload(lkw)
 
         # Helicopter Base
         helicopterBase.draw()
+        #helicopterBase.checkRefuels(heli)
         #helicopterBase.checkUnload(lkw)
 
         # Fahrzeuge
@@ -68,7 +70,20 @@ def spielStart():
         tankFull = lkw.drive()
 
         # Heli
-        heli.followTruck(lkw)
+
+
+        # Wenn Heli leer
+        if heli.currentFuelLevel < 0:
+            helicopterBase.checkIfInBase(heli)
+            heli.flyToBase()
+        else:
+            heli.followTruck(lkw)
+
+
+        # Wenn Heli Erz voll
+        
+
+
 
         if not tankFull:
             gameOver = True
