@@ -2,11 +2,13 @@
 import pygame
 
 import Places
+import Settings
 import Vehicle
 from Settings import screen
 
 # Bildschirm Aktualisierungen einstellen
 clock = pygame.time.Clock()
+
 
 def spielStart():
     lkw = Vehicle.Truck()
@@ -20,22 +22,26 @@ def spielStart():
             if event.type == pygame.QUIT:
                 gameActiv = False
                 print("Spieler hat Quit-Button angeklickt")
-
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_CARET:
+                    if Settings.debugPrints:
+                        Settings.debugPrints = False
+                    else:
+                        Settings.debugPrints = True
 
         tankstelle.draw()
         tankstelle.checkRefuels(lkw)
-        #lkw.driveWithMouse()
-        lkw.drive()
+        lkw.driveWithMouse()
+        #lkw.drive()
+        Settings.printDebugInfo(lkw.debugPrinterArry())
 
-        print(tankstelle, lkw)
         # Spielfeld löschen
 
         # Spielfeld/figuren zeichnen
 
         # Fenster aktualisieren
         pygame.display.flip()
-        screen.fill((0,0,0))
+        screen.fill((0, 0, 0))
         # Refresh-Zeiten festlegen
         clock.tick(60)
     pygame.quit()
-

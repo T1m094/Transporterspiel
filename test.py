@@ -62,6 +62,7 @@ w, h = image.get_size()
 
 done = False
 while not done:
+
     clock.tick(60)
     # Hintergrundbild zeichnen
     screen.blit(imageBg, (0, 0))

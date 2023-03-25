@@ -7,8 +7,8 @@ import Settings
 # Eigenschaften LKW
 maxSpeedForward = 20
 maxSpeedBackward = 5
-speedUp = 0.1
-maxAngleSpeed = 0.25
+speedUp = 0.5
+maxAngleSpeed = 2
 maxFuelLevel = 1000
 maxLoadedQuantity = 10
 
@@ -40,6 +40,7 @@ class Truck:
 
         self.maxLoadedQuantity = maxLoadedQuantity
         self.currentLoadedQuantity = 0
+
 
         #Bild
         # Bild laden
@@ -117,6 +118,10 @@ class Truck:
 
         # Winkel des Autos aktualisieren
         self.angle += self.angleSpeed
+        if self.angle > 360:
+            self.angle = 0
+        elif self.angle < 0:
+            self.angle = 360
         # Bewegungsvektor des Autos berechnen
         car_dx = self.currentSpeed  * math.cos(math.radians(self.angle))
         car_dy = self.currentSpeed  * math.sin(math.radians(self.angle))
@@ -163,7 +168,12 @@ class Truck:
 
     # Erz laden
     def loadOre(self):
-        pass
+        self.maxLoadedQuantity = maxLoadedQuantity
+        self.currentLoadedQuantity = 0
+
+        if self.currentLoadedQuantity < self.maxLoadedQuantity:
+            print("Laden: ", self.currentLoadedQuantity)
+            self.currentLoadedQuantity += 1
 
     # Tanken
     def refuel(self):
@@ -178,6 +188,34 @@ class Truck:
         #Rechteck aktuallisieren
         self.rec = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
         pygame.draw.rect(Settings.screen, (0, 0, 255), self.rec, 2)
+
+    # Debug info LKW
+    def debugPrinterArry(self):
+        colorGreen = (0,255,0)
+        infoLkW = []
+
+
+        text = "__LKW___"
+        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        infoLkW.append(text_surface)
+
+        text = 'currentSpeed: ' + str(self.currentSpeed)
+        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        infoLkW.append(text_surface)
+
+        text = 'angle: ' + str(self.angle)
+        text_surface = Settings.font.render(str(text), False, colorGreen)
+        infoLkW.append(text_surface)
+
+        text = 'currentFuelLevel: ' + str(self.currentFuelLevel)
+        text_surface = Settings.font.render(str(text), False, colorGreen)
+        infoLkW.append(text_surface)
+
+        text = 'currentLoadedQuantity: ' + str(self.currentLoadedQuantity)
+        text_surface = Settings.font.render(str(text), False, colorGreen)
+        infoLkW.append(text_surface)
+
+        return infoLkW
 
 '''
 class Lkw(Vehicle):
