@@ -7,6 +7,25 @@ pygame.font.init()
 font = pygame.font.SysFont('Times', 15)
 
 
+# Default Settings
+#__________________
+# Vehicle
+
+# LKW
+maxSpeedForward = 20    # Maximalgeschwindigkeit Vorwärts
+maxSpeedBackward = 5    # Maximalgeschwindigkeit Rückwärts
+speedUp = 0.5           # Beschleunigung
+maxAngleSpeed = 2       # Wendekreis
+maxLoadedQuantity = 20  # Maximale Ladekappazität Lkw
+
+'''
+# Hubschrauber
+maxSpeedForward = 20    # Maximalgeschwindigkeit Vorwärts
+maxSpeedBackward = 5    # Maximalgeschwindigkeit Rückwärts
+speedUp = 0.5           # Beschleunigung
+maxAngleSpeed = 2       # Wendekreis
+maxLoadedQuantity = 20  # Maximale Ladekappazität Hubschrauber
+'''
 
 # DEBUGGER
 

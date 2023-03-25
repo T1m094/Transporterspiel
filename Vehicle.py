@@ -5,12 +5,12 @@ import pygame
 import Settings
 
 # Eigenschaften LKW
-maxSpeedForward = 20
-maxSpeedBackward = 5
-speedUp = 0.5
-maxAngleSpeed = 2
-maxFuelLevel = 1000
-maxLoadedQuantity = 20
+maxSpeedForward = Settings.maxSpeedForward
+maxSpeedBackward = Settings.maxSpeedBackward
+speedUp = Settings.speedUp
+maxAngleSpeed = Settings.maxAngleSpeed
+maxLoadedQuantity = Settings.maxLoadedQuantity
+maxFuelLevel = 100
 
 '''
 # Eigenschaften Hubschrauber
@@ -189,6 +189,10 @@ class Truck:
 
 
         text = "__LKW___"
+        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        infoLkW.append(text_surface)
+
+        text = 'currentpos: ' + str(self.currentPosition)
         text_surface = Settings.font.render(str(text) , False, colorGreen)
         infoLkW.append(text_surface)
 
