@@ -12,10 +12,21 @@ clock = pygame.time.Clock()
 
 def spielStart():
 
+    # Orte
     tankstelle = Places.GasStation()
     erzMine = Places.oreMine()
     lkwZiel = Places.truckDestination()
+    helicopterBase = Places.helicopterBase()
+
+    #Fahrzeuge
     lkw = Vehicle.Truck()
+    heli = Vehicle.Helicopter()
+
+    # Spielstand
+    win = False
+    gameOver = False
+    tankFull = True
+
 
     # solange die Variable True ist, soll das Spiel laufen
     gameActiv = True
@@ -33,6 +44,7 @@ def spielStart():
                     else:
                         Settings.debugPrints = True
 
+        # Orte
         # Tankstelle
         tankstelle.draw()
         tankstelle.checkRefuels(lkw)
@@ -43,15 +55,50 @@ def spielStart():
 
         # LKW Ziel
         lkwZiel.draw()
-        lkwZiel.checkUnload(lkw)
+        win = lkwZiel.checkUnload(lkw)
+
+        # Helicopter Base
+        helicopterBase.draw()
+        #helicopterBase.checkUnload(lkw)
+
+        # Fahrzeuge
 
         # LKW
         # lkw.driveWithMouse()
-        lkw.drive()
+        tankFull = lkw.drive()
+
+        # Heli
+        heli.followTruck(lkw)
+
+        if not tankFull:
+            gameOver = True
+
+
+        # Spielstand
+        if not tankFull:
+            gameOver = True
 
         # DEBUGGER
+        status = []
+        text = "__Status__"
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        status.append(text_surface)
+
+        text = 'Gewonnen: ' + str(win)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        status.append(text_surface)
+
+        text = 'Verloren: ' + str(gameOver)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        status.append(text_surface)
+
+        text = 'Tanken: ' + str(tankFull)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        status.append(text_surface)
+
+
         if Settings.debugPrints:
-            Settings.printDebugInfo(lkw.debugPrinterArry(), erzMine.debugPrinterArry(), lkwZiel.debugPrinterArry())
+            Settings.printDebugInfo(lkw.debugPrinterArry(), heli.debugPrinterArry(), erzMine.debugPrinterArry(), lkwZiel.debugPrinterArry(), helicopterBase.debugPrinterArry(), status)
 
         # Spielfeld löschen
 

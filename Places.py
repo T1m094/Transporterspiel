@@ -58,15 +58,15 @@ class oreMine:
         infoOreMine = []
 
         text = "__oreMine__"
-        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
 
         text = 'pos: ' + str(self.pos)
-        text_surface = Settings.font.render(str(text), False, colorGreen)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
 
         text = 'percentOre: ' + str(self.percentOre)
-        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
 
         return infoOreMine
@@ -91,7 +91,10 @@ class truckDestination:
                 self.percentOre += 1
 
             if self.percentOre >= thresholdToWin:
-                self.win = True
+                return True
+
+        return False
+
 
 
     # Debug info truckDestination
@@ -99,19 +102,52 @@ class truckDestination:
         infoTruckDestination = []
 
         text = "__truckDestination__"
-        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoTruckDestination.append(text_surface)
 
         text = 'pos: ' + str(self.pos)
-        text_surface = Settings.font.render(str(text), False, colorGreen)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoTruckDestination.append(text_surface)
 
         text = 'percentOre: ' + str(self.percentOre)
-        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoTruckDestination.append(text_surface)
 
         text = 'Win: ' + str(self.win)
-        text_surface = Settings.font.render(str(text) , False, colorGreen)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoTruckDestination.append(text_surface)
 
         return infoTruckDestination
+
+class helicopterBase:
+    def __init__(self):
+        self.pos = ((Settings.screen.get_height()/2) + 850, 350)
+        self.size = (400,400)
+        self.rec = pygame.Rect(self.pos, self.size)
+        self.percentOre = 0
+    def draw(self):
+        pygame.draw.rect(Settings.screen, (255,0,255), self.rec, 2)
+
+    def checkUnload(self, vehicle):
+        if self.rec.contains(vehicle.rotated_image_rect):
+            if vehicle.currentLoadedQuantity > 0:
+                vehicle.uploadOre()
+                self.percentOre += 1
+    # Debug info truckDestination
+    def debugPrinterArry(self):
+        infoHelicopterBase = []
+
+        text = "__helicopterBase__"
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
+        infoHelicopterBase.append(text_surface)
+
+        text = 'pos: ' + str(self.pos)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        infoHelicopterBase.append(text_surface)
+
+        text = 'percentOre: ' + str(self.percentOre)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
+        infoHelicopterBase.append(text_surface)
+
+        return infoHelicopterBase
+

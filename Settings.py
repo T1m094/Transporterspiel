@@ -2,7 +2,7 @@ import pygame
 
 
 #   Display
-screen = pygame.display.set_mode()
+screen = pygame.display.set_mode((1910, 1000))
 pygame.font.init()
 font = pygame.font.SysFont('Times', 15)
 
@@ -12,26 +12,28 @@ font = pygame.font.SysFont('Times', 15)
 # Vehicle
 
 # LKW
-maxSpeedForward = 20    # Maximalgeschwindigkeit Vorwärts
+maxSpeedForward = 10    # Maximalgeschwindigkeit Vorwärts
 maxSpeedBackward = 5    # Maximalgeschwindigkeit Rückwärts
 speedUp = 0.5           # Beschleunigung
 maxAngleSpeed = 2       # Wendekreis
 maxLoadedQuantity = 20  # Maximale Ladekappazität Lkw
+fuelConsumption = 0.1   # Sprit Verbrauch
 
-'''
+
 # Hubschrauber
-maxSpeedForward = 20    # Maximalgeschwindigkeit Vorwärts
-maxSpeedBackward = 5    # Maximalgeschwindigkeit Rückwärts
-speedUp = 0.5           # Beschleunigung
-maxAngleSpeed = 2       # Wendekreis
-maxLoadedQuantity = 20  # Maximale Ladekappazität Hubschrauber
-'''
+maxSpeedForwardHeli = 5    # Maximalgeschwindigkeit Vorwärts
+maxSpeedBackwardHeli = 5    # Maximalgeschwindigkeit Rückwärts
+speedUpHeli = 0.05           # Beschleunigung
+maxAngleSpeedHeli = 2       # Wendekreis
+maxLoadedQuantityHeli = 20  # Maximale Ladekappazität Hubschrauber
+fuelConsumptionHeli = 0.1
+
 
 # DEBUGGER
-
+debugInfoColor = (0,255,0)
 debug = True
 
-debugPrints = True
+debugPrints = False
 
 
 def printDebugInfo(*args):
