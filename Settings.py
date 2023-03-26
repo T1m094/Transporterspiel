@@ -21,11 +21,11 @@ fuelConsumption = 0.1   # Sprit Verbrauch
 
 
 # Hubschrauber
-maxSpeedForwardHeli = 5    # Maximalgeschwindigkeit Vorwärts
+maxSpeedForwardHeli = 10   # Maximalgeschwindigkeit Vorwärts
 maxSpeedBackwardHeli = 5    # Maximalgeschwindigkeit Rückwärts
-speedUpHeli = 0.05           # Beschleunigung
+speedUpHeli = 0.05        # Beschleunigung
 maxAngleSpeedHeli = 2       # Wendekreis
-maxLoadedQuantityHeli = 20  # Maximale Ladekappazität Hubschrauber
+maxLoadedQuantityHeli = 5  # Maximale Ladekappazität Hubschrauber
 fuelConsumptionHeli = 0.1
 
 

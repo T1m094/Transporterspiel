@@ -87,7 +87,7 @@ class truckDestination:
     def checkUnload(self, vehicle):
         if self.rec.contains(vehicle.rotated_image_rect):
             if vehicle.currentLoadedQuantity > 0:
-                vehicle.uploadOre()
+                vehicle.unloadOre()
                 self.percentOre += 1
 
             if self.percentOre >= thresholdToWin:
@@ -132,13 +132,14 @@ class helicopterBase:
     def checkUnload(self, vehicle):
         if self.rec.contains(vehicle.rotated_image_rect):
             if vehicle.currentLoadedQuantity > 0:
-                vehicle.uploadOre()
+                vehicle.unloadOre()
                 self.percentOre += 1
 
     def checkIfInBase(self, vehicle):
         if self.rec.contains(vehicle.rotated_image_rect):
-            vehicle.currentFuelLevel = 100
-
+            vehicle.currentFuelLevel = vehicle.maxFuelLevel
+            self.percentOre += vehicle.currentLoadedQuantity
+            vehicle.currentLoadedQuantity = 0
 
     # Debug info truckDestination
     def debugPrinterArry(self):

@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 
 
 def spielStart():
-
+    i = 0
     # Orte
     tankstelle = Places.GasStation()
     erzMine = Places.oreMine()
@@ -74,27 +74,22 @@ def spielStart():
 
         # Heli
 
-
-        # Wenn Heli leer
-        if heli.currentFuelLevel < 0:
-            helicopterBase.checkIfInBase(heli)
+        # Prüft ob Heli klauen kann und klaut
+        heli.checkAndStealOre(lkw)
+        helicopterBase.checkIfInBase(heli)
+        # Wenn Heli leer oder Voll
+        if ((heli.currentFuelLevel < 0) or (heli.currentLoadedQuantity == heli.maxLoadedQuantity)):
             heli.flyToBase()
         else:
             heli.followTruck(lkw)
 
 
-        # Wenn Heli Erz voll
-        
-
-
-
+        # Stautus und Spielstand
         if not tankFull:
             gameOver = True
-
-
-        # Spielstand
-        if not tankFull:
+        if helicopterBase.percentOre >= 20:
             gameOver = True
+
 
         # DEBUGGER
         status = []
@@ -118,13 +113,11 @@ def spielStart():
         if Settings.debugPrints:
             Settings.printDebugInfo(lkw.debugPrinterArry(), heli.debugPrinterArry(), erzMine.debugPrinterArry(), lkwZiel.debugPrinterArry(), helicopterBase.debugPrinterArry(), status)
 
-        # Spielfeld löschen
-
-        # Spielfeld/figuren zeichnen
 
         # Fenster aktualisieren
         pygame.display.flip()
         screen.fill((0, 0, 0))
+
         # Refresh-Zeiten festlegen
         clock.tick(60)
     pygame.quit()

@@ -47,9 +47,10 @@ class Vehicle:
     def fuelConsumption(self):
         self.currentFuelLevel -= fuelConsumption
     # Erz entladen
-    def uploadOre(self):
+    def unloadOre(self):
         if self.currentLoadedQuantity > 0:
             self.currentLoadedQuantity -= 1
+
 
     # Erz aufladen
     def loadOre(self):

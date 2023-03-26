@@ -18,7 +18,7 @@ class Helicopter(Vehicle):
         self.name = "__Helicopter__"
         self.basePosition = base.rec.center
         #self.currentPosition = [((Settings.screen.get_height()/2) + 850), 350]
-        self.currentPosition = [20, 50]
+        self.currentPosition = [200, 800]
 
         self.maxSpeedForward = maxSpeedForwardHeli
         self.maxSpeedBackward = maxSpeedBackwardHeli
@@ -103,6 +103,12 @@ class Helicopter(Vehicle):
         self.currentPosition[0] += car_dx
         self.currentPosition[1] -= car_dy
 
-        Settings.screen.scroll(car_dx, car_dy)
-
         self.steerVehicle()
+
+    def checkAndStealOre(self, truck):
+        if self.rotated_image_rect.collidepoint(truck.rotated_image_rect.center):
+            if truck.currentLoadedQuantity > 0:
+                if self.currentLoadedQuantity < self.maxLoadedQuantity:
+                    self.loadOre()
+                    truck.unloadOre()
+
