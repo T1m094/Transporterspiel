@@ -3,6 +3,8 @@ import math
 import pygame
 
 import Settings
+from Control import Control
+from Truck import Truck
 from Vehicle import Vehicle
 
 # Eigenschaften Hubschrauber
@@ -34,6 +36,8 @@ class Helicopter(Vehicle):
         self.maxLoadedQuantity = maxLoadedQuantityHeli
         self.currentLoadedQuantity = 0#<-
 
+        self.control = Control(4) #Steuerung auf Folgen 4<-TODO:
+
 
         #Bild
         # Bild laden
@@ -46,7 +50,7 @@ class Helicopter(Vehicle):
         self.imageCenterPoint =[(self.image.get_width()/2),(self.image.get_height()/2)]
         self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
 
-    def flyToBase(self):
+    def flyToBase(self) -> None:
         basePosition = self.basePosition
 
 
@@ -75,35 +79,8 @@ class Helicopter(Vehicle):
         self.currentPosition[1] -= car_dy
         self.steerVehicle()
 
-    def followTruck(self, truck):
-        # Mouse Informationen
-        truckPos = truck.currentPosition
-
-        if self.currentPosition != truckPos:
-            self.currentSpeed += self.speedUp
-            if self.currentSpeed >= self.maxSpeedForward:
-             self.currentSpeed = self.maxSpeedForward
-             self.fuelConsumption()
-        else:
-            self.currentSpeed = 0
-
-        # Winkel berechnen
-        delta_x = truckPos[0] - self.currentPosition[0]
-        delta_y = truckPos[1] - self.currentPosition[1]
-        if Settings.debug:
-            pygame.draw.aaline(Settings.screen, (255, 0, 255), self.currentPosition, truckPos)
-
-        self.angle = - math.degrees(math.atan2(delta_y, delta_x))
-
-        # Bewegungsvektor des Helis berechnen
-        car_dx = self.currentSpeed * math.cos(math.radians(self.angle))
-        car_dy = self.currentSpeed * math.sin(math.radians(self.angle))
-
-        # Position des Helis aktualisieren
-        self.currentPosition[0] += car_dx
-        self.currentPosition[1] -= car_dy
-
-        self.steerVehicle()
+    def followTruck(self,truck: Truck):
+        self.control.drive(self, truck)
 
     def checkAndStealOre(self, truck):
         if self.rotated_image_rect.collidepoint(truck.rotated_image_rect.center):

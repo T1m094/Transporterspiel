@@ -5,6 +5,7 @@ import Places
 import Settings
 import Truck
 import Helicopter
+from Control import Control
 from Settings import screen
 
 # Bildschirm Aktualisierungen einstellen
@@ -21,6 +22,8 @@ def spielStart():
 
     #Fahrzeuge
     lkw = Truck.Truck()
+    lkw2 = Truck.Truck()
+    lkw3 = Truck.Truck()
     heli = Helicopter.Helicopter(helicopterBase)
 
     # Spielstand
@@ -69,8 +72,7 @@ def spielStart():
         # Fahrzeuge
 
         # LKW
-        #lkw.driveWithMouse()
-        tankFull = lkw.drive()
+        tankFull = lkw.steering()
 
         # Heli
 
