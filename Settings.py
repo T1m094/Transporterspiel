@@ -12,13 +12,20 @@ font = pygame.font.SysFont('Times', 15)
 # Vehicle
 
 # LKW
-maxSpeedForward = 10    # Maximalgeschwindigkeit Vorwärts
-maxSpeedBackward = 5    # Maximalgeschwindigkeit Rückwärts
-speedUp = 0.5           # Beschleunigung
-maxAngleSpeed = 2       # Wendekreis
-maxLoadedQuantity = 20  # Maximale Ladekappazität Lkw
-fuelConsumption = 0.1   # Sprit Verbrauch
+maxSpeedForwardTruck = 10    # Maximalgeschwindigkeit Vorwärts
+maxSpeedBackwardTruck = 5    # Maximalgeschwindigkeit Rückwärts
+speedUpTruck = 0.5           # Beschleunigung
+maxAngleSpeedTruck = 2       # Wendekreis
+maxLoadedQuantityTruck = 20  # Maximale Ladekappazität Lkw
+fuelConsumptionTruck = 0.1   # Sprit Verbrauch
 
+# Steuerung für
+# 1 - Tastatur
+# 2 - Maus
+# 3 - Joystick
+# 4 - Folgen
+
+controllerTruck = 2 # Default 1
 
 # Hubschrauber
 maxSpeedForwardHeli = 10   # Maximalgeschwindigkeit Vorwärts
@@ -27,6 +34,8 @@ speedUpHeli = 0.05        # Beschleunigung
 maxAngleSpeedHeli = 2       # Wendekreis
 maxLoadedQuantityHeli = 5  # Maximale Ladekappazität Hubschrauber
 fuelConsumptionHeli = 0.1
+
+controllerHeli = 4 # Default 4
 
 
 # DEBUGGER

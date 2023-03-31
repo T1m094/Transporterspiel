@@ -5,12 +5,12 @@ import pygame
 import Settings
 
 # Eigenschaften LKW
-maxSpeedForward = Settings.maxSpeedForward
-maxSpeedBackward = Settings.maxSpeedBackward
-speedUp = Settings.speedUp
-maxAngleSpeed = Settings.maxAngleSpeed
-maxLoadedQuantity = Settings.maxLoadedQuantity
-fuelConsumption = Settings.fuelConsumption
+maxSpeedForward = Settings.maxSpeedForwardTruck
+maxSpeedBackward = Settings.maxSpeedBackwardTruck
+speedUp = Settings.speedUpTruck
+maxAngleSpeed = Settings.maxAngleSpeedTruck
+maxLoadedQuantity = Settings.maxLoadedQuantityTruck
+fuelConsumption = Settings.fuelConsumptionTruck
 
 
 maxFuelLevel = 100

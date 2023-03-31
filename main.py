@@ -11,6 +11,7 @@ FPS = 60
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     pygame.init()
+    pygame.joystick.init()
 
     pygame.display.set_caption("Transporterspiel")
     spielLogik.spielStart()

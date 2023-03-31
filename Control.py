@@ -7,10 +7,10 @@ import Settings
 
 
 class Control:
-    MAXSPEEDFORWARD = Settings.maxSpeedForward
-    MAXSPEEDBACKWARD = Settings.maxSpeedBackward
-    SPEEDUP = Settings.speedUp
-    MAXANGLESPEED = Settings.maxAngleSpeed
+    MAXSPEEDFORWARD = Settings.maxSpeedForwardTruck
+    MAXSPEEDBACKWARD = Settings.maxSpeedBackwardTruck
+    SPEEDUP = Settings.speedUpTruck
+    MAXANGLESPEED = Settings.maxAngleSpeedTruck
 
     MAXSPEEDFORWARDHELI = Settings.maxSpeedForwardHeli
     MAXSPEEDBACKWARDHELI = Settings.maxSpeedBackwardHeli
