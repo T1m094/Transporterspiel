@@ -136,9 +136,8 @@ class Control:
         driveBackward = int((driveBackward + 1) * 50)
         driveBackward = driveBackward / 10
 
-        print(accelerate, driveBackward )
         if (accelerate > 0) and (driveBackward == 0):
-            print("Speedup")
+            vehicle.fuelConsumption()
             # Geschwindigkeit erhöhen basierend auf der Gaspedalstellung und dem Beschleunigungswert
             new_speed = self.SPEEDUP * accelerate
 
@@ -148,6 +147,7 @@ class Control:
 
             vehicle.currentSpeed = new_speed
         elif (accelerate == 0) and (driveBackward > 0):
+            vehicle.fuelConsumption()
             new_speed = self.SPEEDUP * driveBackward
 
             # Maximalwert für die Geschwindigkeit beachten
@@ -162,24 +162,31 @@ class Control:
         # Lenkung
         steering  = pygame.joystick.Joystick(0).get_axis(2)
 
+        # Lenken
+        if steering < 0:
+            print("left")
+            vehicle.angleSpeed = self.MAXANGLESPEED
+        elif  steering > 0:
+            print("Right")
+            vehicle.angleSpeed = -self.MAXANGLESPEED
+        else:
+            print("straiton")
+            vehicle.angleSpeed = 0
+        print(steering)
 
+        # Winkel des Autos aktualisieren
+        vehicle.angle += vehicle.angleSpeed
+        if vehicle.angle > 360:
+            vehicle.angle = 0
+        elif vehicle.angle < 0:
+            vehicle.angle = 360
 
         self.update_vehicle_position(vehicle)
 
-
-
-
-        #print(accelerate, " ", driveBackward, " ", steering, " ", new_speed)
-
-
-
-
-
-
-
-
-
-
+        if vehicle.currentFuelLevel > 0:
+            return True
+        else:
+            return False
 
 
     #######################################
