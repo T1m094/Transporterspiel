@@ -137,10 +137,12 @@ class Control:
         driveBackward = driveBackward / 10
 
         if (accelerate > 0) and (driveBackward == 0):
+
             vehicle.fuelConsumption()
             # Geschwindigkeit erhöhen basierend auf der Gaspedalstellung und dem Beschleunigungswert
             new_speed = self.SPEEDUP * accelerate
 
+            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 1)
             # Maximalwert für die Geschwindigkeit beachten
             if new_speed > self.MAXSPEEDFORWARD:
                 new_speed = self.MAXSPEEDFORWARD
@@ -149,7 +151,7 @@ class Control:
         elif (accelerate == 0) and (driveBackward > 0):
             vehicle.fuelConsumption()
             new_speed = self.SPEEDUP * driveBackward
-
+            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 1)
             # Maximalwert für die Geschwindigkeit beachten
             if new_speed > self.MAXSPEEDBACKWARD:
                 new_speed = self.MAXSPEEDBACKWARD
@@ -157,6 +159,7 @@ class Control:
             vehicle.currentSpeed = -new_speed
 
         else:
+            pygame.joystick.Joystick(0).rumble(0.009, 0.009, 1)
             vehicle.currentSpeed = 0
 
         # Lenkung
