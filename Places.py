@@ -8,11 +8,15 @@ colorGreen = (0, 255, 0)
 thresholdToWin = 80
 class GasStation:
     def __init__(self):
-        self.pos = [20,((Settings.screen.get_height()/2) -100)]
+        self.currentPosition = [20,((Settings.screen.get_height()/2) -100)]
         self.size = (500,500)
-        self.rec = pygame.Rect(self.pos, self.size)
+        self.rec = pygame.Rect(self.currentPosition, self.size)
+        self.image = pygame.image.load("scr/img/Tankestelle.png")
 
     def draw(self):
+        text = "Tankstelle"
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        Settings.screen.blit(text_surface, (self.rec.center))
         pygame.draw.rect(Settings.screen, (0,0,255), self.rec, 2)
 
     #Prüfe ob getakt wird
@@ -41,6 +45,9 @@ class oreMine:
         self.percentOre = 100
 
     def draw(self):
+        text = "Quelle"
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        Settings.screen.blit(text_surface, (self.rec.center))
         pygame.draw.rect(Settings.screen, (255,0,0), self.rec, 2)
 
     # Prüfen ob LKW an der Miene ist
@@ -80,6 +87,9 @@ class truckDestination:
 
         self.win = False
     def draw(self):
+        text = "Ziel"
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        Settings.screen.blit(text_surface, (self.rec.center))
         pygame.draw.rect(Settings.screen, (0,255,0), self.rec, 2)
 
     # Prüfen ob LKW im Ziel ist
@@ -127,6 +137,9 @@ class helicopterBase:
 
         self.percentOre = 0
     def draw(self):
+        text = "Hubschrauber Base"
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        Settings.screen.blit(text_surface, (self.rec.center))
         pygame.draw.rect(Settings.screen, (255,0,255), self.rec, 2)
 
     def checkUnload(self, vehicle):

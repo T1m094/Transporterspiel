@@ -6,6 +6,7 @@ import Settings
 import Truck
 import Helicopter
 from Control import Control
+from MapView import MapView
 from Settings import screen
 
 # Bildschirm Aktualisierungen einstellen
@@ -13,7 +14,7 @@ clock = pygame.time.Clock()
 
 
 def spielStart():
-    i = 0
+
     # Orte
     tankstelle = Places.GasStation()
     erzMine = Places.oreMine()
@@ -22,8 +23,6 @@ def spielStart():
 
     #Fahrzeuge
     lkw = Truck.Truck()
-    lkw2 = Truck.Truck()
-    lkw3 = Truck.Truck()
     heli = Helicopter.Helicopter(helicopterBase)
 
     # Spielstand
@@ -82,7 +81,7 @@ def spielStart():
         heli.checkAndStealOre(lkw)
         helicopterBase.checkIfInBase(heli)
         # Wenn Heli leer oder Voll
-        if ((heli.currentFuelLevel < 0) or (heli.currentLoadedQuantity == heli.maxLoadedQuantity)):
+        if ((heli.currentFuelLevel < 0) or (heli.currentLoadedQuantity == heli.maxLoadedQuantity) or (lkw.currentLoadedQuantity == 0)):
             heli.flyToBase()
         else:
             heli.followTruck(lkw)
@@ -116,6 +115,57 @@ def spielStart():
 
         if Settings.debugPrints:
             Settings.printDebugInfo(lkw.debugPrinterArry(), heli.debugPrinterArry(), erzMine.debugPrinterArry(), lkwZiel.debugPrinterArry(), helicopterBase.debugPrinterArry(), status)
+
+
+        # Fenster aktualisieren
+        pygame.display.flip()
+        screen.fill((0, 0, 0))
+
+        # Refresh-Zeiten festlegen
+        clock.tick(60)
+    pygame.quit()
+def spielStartTest():
+    karte = pygame.image.load("scr/img/BG.png")
+    map_view = MapView(karte)
+    #map_view = MapView(karte)
+
+    tankstelle = Places.GasStation()
+    lkw = Truck.Truck()
+    #erzMine = Places.oreMine()
+
+    map_view.addObjekt(tankstelle)
+
+    #map_view.addObjekt(erzMine)
+
+    # solange die Variable True ist, soll das Spiel laufen
+    gameActiv = True
+
+    while gameActiv:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                gameActiv = False
+                print("Spieler hat Quit-Button angeklickt")
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_CARET:
+                    if Settings.debugPrints:
+                        Settings.debugPrints = False
+                        Settings.debug = False
+                    else:
+                        Settings.debugPrints = True
+                        Settings.debug = True
+
+        tankFull = lkw.steering()
+        # Kartenansicht aktualisieren
+        map_view.update(screen)
+        map_view.draw_objects()
+        map_view.draw_object_v(lkw)
+
+        # Tastenereignisse verarbeiten
+        map_view.handle_input_events()
+
+        if Settings.debugPrints:
+            Settings.printDebugInfo(lkw.debugPrinterArry())
+
 
 
         # Fenster aktualisieren

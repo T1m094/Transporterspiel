@@ -16,10 +16,15 @@ if __name__ == '__main__':
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
 
+    test = True
 
 
     pygame.display.set_caption("Transporterspiel")
-    spielLogik.spielStart()
+
+    if test:
+        spielLogik.spielStartTest()
+    else:
+        spielLogik.spielStart()
 
 
 

@@ -17,6 +17,7 @@ maxFuelLevel = 100
 
 class Vehicle:
     # Fahrzeug lenken
+
     def steerVehicle(self):
         # offset from pivot to center
         image_rect = self.image.get_rect(topleft=(self.currentPosition[0] - self.imageCenterPoint[0], self.currentPosition[1] - self.imageCenterPoint[1]))
@@ -29,16 +30,16 @@ class Vehicle:
         rotated_image_center = (self.currentPosition[0] - rotated_offset.x, self.currentPosition[1] - rotated_offset.y)
 
         # gedrehtes Bild erhalten
-        rotated_image = pygame.transform.rotate(self.image, self.angle)
-        self.rotated_image_rect = rotated_image.get_rect(center=rotated_image_center)
+        self.rotated_image = pygame.transform.rotate(self.image, self.angle)
+        self.rotated_image_rect = self.rotated_image.get_rect(center=rotated_image_center)
 
         # Zeichen und updaten
-        Settings.screen.blit(rotated_image, self.rotated_image_rect)
+        Settings.screen.blit(self.rotated_image, self.rotated_image_rect)
 
         # V FOR DEBUG v
         # Hilfslienen
         if (Settings.debug):
-            pygame.draw.rect(Settings.screen, (255, 0, 0), (*self.rotated_image_rect.topleft, *rotated_image.get_size()), 2)
+            pygame.draw.rect(Settings.screen, (255, 0, 0), (*self.rotated_image_rect.topleft, *self.rotated_image.get_size()), 2)
             pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0] - 20, self.currentPosition[1]), (self.currentPosition[0] + 20, self.currentPosition[1]), 3)
             pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0], self.currentPosition[1] - 20), (self.currentPosition[0], self.currentPosition[1] + 20), 3)
             pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)

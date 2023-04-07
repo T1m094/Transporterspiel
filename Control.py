@@ -140,23 +140,19 @@ class Control:
 
             vehicle.fuelConsumption()
             # Geschwindigkeit erhöhen basierend auf der Gaspedalstellung und dem Beschleunigungswert
-            new_speed = self.SPEEDUP * accelerate
+            vehicle.currentSpeed += self.SPEEDUP
 
             pygame.joystick.Joystick(0).rumble(0.5, 0.5, 1)
             # Maximalwert für die Geschwindigkeit beachten
-            if new_speed > self.MAXSPEEDFORWARD:
-                new_speed = self.MAXSPEEDFORWARD
+            if vehicle.currentSpeed > self.MAXSPEEDFORWARD:
+                vehicle.currentSpeed = self.MAXSPEEDFORWARD
 
-            vehicle.currentSpeed = new_speed
+
         elif (accelerate == 0) and (driveBackward > 0):
             vehicle.fuelConsumption()
-            new_speed = self.SPEEDUP * driveBackward
             pygame.joystick.Joystick(0).rumble(0.5, 0.5, 1)
-            # Maximalwert für die Geschwindigkeit beachten
-            if new_speed > self.MAXSPEEDBACKWARD:
-                new_speed = self.MAXSPEEDBACKWARD
+            vehicle.currentSpeed  = -self.MAXSPEEDBACKWARD
 
-            vehicle.currentSpeed = -new_speed
 
         else:
             pygame.joystick.Joystick(0).rumble(0.009, 0.009, 1)
@@ -167,15 +163,11 @@ class Control:
 
         # Lenken
         if steering < 0:
-            print("left")
             vehicle.angleSpeed = self.MAXANGLESPEED
         elif  steering > 0:
-            print("Right")
             vehicle.angleSpeed = -self.MAXANGLESPEED
         else:
-            print("straiton")
             vehicle.angleSpeed = 0
-        print(steering)
 
         # Winkel des Autos aktualisieren
         vehicle.angle += vehicle.angleSpeed
@@ -215,7 +207,11 @@ class Control:
 
         vehicle.angle = - math.degrees(math.atan2(delta_y, delta_x))
 
-        self.update_vehicle_position(vehicle)
+        if vehicle.currentPosition == truck.currentPosition:
+            print("JEtz")
+        else:
+         self.update_vehicle_position(vehicle)
+
 
 
     def update_vehicle_position(self,vehicle):

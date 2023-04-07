@@ -42,8 +42,12 @@ class Truck(Vehicle):
         image = pygame.image.load(image_path)
         # Bild auf die Größe 200x200 skalieren
         image = pygame.transform.rotate(image, -90)
-        self.image = pygame.transform.scale(image, (200, 200))
+        self.image = pygame.transform.scale(image, (300,150)) # 200 200
+
+
+
         #Bild Mitte
+        self.rotated_image = pygame.transform.rotate(self.image, self.angle)
         self.imageCenterPoint =[(self.image.get_width()/2),(self.image.get_height()/2)]
         self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
     def steering(self):
