@@ -13,8 +13,14 @@ if __name__ == '__main__':
     pygame.init()
     pygame.joystick.init()
 
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+
+
+
     pygame.display.set_caption("Transporterspiel")
     spielLogik.spielStart()
+
 
 
 

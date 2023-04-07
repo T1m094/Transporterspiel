@@ -3,7 +3,7 @@ import math
 import pygame
 
 import Settings
-
+import main
 
 
 class Control:
@@ -33,13 +33,12 @@ class Control:
             self.driveToPoint(vehicle)
             pass
         elif self.cotrollType == 3:
-            pass
+            self.dirveJoysick(vehicle)
         elif self.cotrollType == 4:
-            pass
             self.followTruck(vehicle,truck)
 
     #######################################
-    #       Steuerung LKW  Tastatur       #
+    #       Steuerung      Tastatur       #
     #######################################
     def driveKeyboard(self, vehicle):
         # Überprüfe den Status aller Tasten
@@ -115,6 +114,73 @@ class Control:
             return True
         else:
             return False
+    #######################################
+    #       Steuerung Joysick             #
+    #######################################
+    def dirveJoysick(self, vehicle):
+        # Joystick-Events abfragen
+        pygame.event.pump()
+
+        # Vorwärts fahren
+        accelerate = pygame.joystick.Joystick(0).get_axis(5)
+
+
+        # Berechne den Schwellenwert basierend auf dem aktuellen Wert
+        accelerate = int((accelerate + 1) * 50)
+        accelerate = accelerate / 10
+
+
+        driveBackward = pygame.joystick.Joystick(0).get_axis(4)
+
+        # Berechne den Schwellenwert basierend auf dem aktuellen Wert
+        driveBackward = int((driveBackward + 1) * 50)
+        driveBackward = driveBackward / 10
+
+        print(accelerate, driveBackward )
+        if (accelerate > 0) and (driveBackward == 0):
+            print("Speedup")
+            # Geschwindigkeit erhöhen basierend auf der Gaspedalstellung und dem Beschleunigungswert
+            new_speed = self.SPEEDUP * accelerate
+
+            # Maximalwert für die Geschwindigkeit beachten
+            if new_speed > self.MAXSPEEDFORWARD:
+                new_speed = self.MAXSPEEDFORWARD
+
+            vehicle.currentSpeed = new_speed
+        elif (accelerate == 0) and (driveBackward > 0):
+            new_speed = self.SPEEDUP * driveBackward
+
+            # Maximalwert für die Geschwindigkeit beachten
+            if new_speed > self.MAXSPEEDBACKWARD:
+                new_speed = self.MAXSPEEDBACKWARD
+
+            vehicle.currentSpeed = -new_speed
+
+        else:
+            vehicle.currentSpeed = 0
+
+        # Lenkung
+        steering  = pygame.joystick.Joystick(0).get_axis(2)
+
+
+
+        self.update_vehicle_position(vehicle)
+
+
+
+
+        #print(accelerate, " ", driveBackward, " ", steering, " ", new_speed)
+
+
+
+
+
+
+
+
+
+
+
 
     #######################################
     #       Folgen                        #

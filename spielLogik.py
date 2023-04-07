@@ -35,6 +35,8 @@ def spielStart():
     # solange die Variable True ist, soll das Spiel laufen
     gameActiv = True
 
+
+
     while gameActiv:
         # Exit
         for event in pygame.event.get():

@@ -2,7 +2,7 @@ import pygame
 
 
 #   Display
-screen = pygame.display.set_mode((1910, 1000))
+screen = pygame.display.set_mode()
 pygame.font.init()
 font = pygame.font.SysFont('Times', 15)
 
@@ -25,7 +25,7 @@ fuelConsumptionTruck = 0.1   # Sprit Verbrauch
 # 3 - Joystick
 # 4 - Folgen
 
-controllerTruck = 2 # Default 1
+controllerTruck = 3# Default 1
 
 # Hubschrauber
 maxSpeedForwardHeli = 10   # Maximalgeschwindigkeit Vorwärts
