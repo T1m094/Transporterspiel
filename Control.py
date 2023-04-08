@@ -206,11 +206,7 @@ class Control:
             pygame.draw.aaline(Settings.screen, (255, 0, 255), vehicle.currentPosition, truckPos)
 
         vehicle.angle = - math.degrees(math.atan2(delta_y, delta_x))
-
-        if vehicle.currentPosition == truck.currentPosition:
-            print("JEtz")
-        else:
-         self.update_vehicle_position(vehicle)
+        self.update_vehicle_position(vehicle)
 
 
 

@@ -81,8 +81,8 @@ elif difficulty == 3:
 # 2 - Maus
 # 3 - Joystick
 # 4 - Folgen
-controllerTruck = 3
-controllerHeli = 4
+controllerTruck = 2
+controllerHeli = 3
 
 
 

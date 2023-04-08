@@ -131,9 +131,11 @@ class truckDestination:
 
 class helicopterBase:
     def __init__(self):
-        self.pos = ((Settings.screen.get_height()/2) + 850, 350)
-        self.size = (400,400)
+        self.pos = ((Settings.screen.get_height()/2) + 950, 350)
+        self.size = (500,500)
         self.rec = pygame.Rect(self.pos, self.size)
+
+        self.inBase = False
 
         self.percentOre = 0
     def draw(self):
@@ -150,9 +152,13 @@ class helicopterBase:
 
     def checkIfInBase(self, vehicle):
         if self.rec.contains(vehicle.rotated_image_rect):
+            self.inBase = True
             vehicle.currentFuelLevel = vehicle.maxFuelLevel
             self.percentOre += vehicle.currentLoadedQuantity
             vehicle.currentLoadedQuantity = 0
+        else:
+            self.inBase = False
+
 
     # Debug info truckDestination
     def debugPrinterArry(self):
@@ -162,11 +168,15 @@ class helicopterBase:
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoHelicopterBase.append(text_surface)
 
-        text = 'pos: ' + str(self.pos)
+        text = f"pos: {self.pos}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoHelicopterBase.append(text_surface)
 
         text = 'percentOre: ' + str(self.percentOre)
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
+        infoHelicopterBase.append(text_surface)
+
+        text = f"In Base: {self.inBase}"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoHelicopterBase.append(text_surface)
 

@@ -71,23 +71,23 @@ class Vehicle:
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
 
-        text = 'currentpos: ' + str(self.currentPosition)
+        text = f"currentpos: {self.currentPosition}"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
 
-        text = 'currentSpeed: ' + str(self.currentSpeed)
+        text = f"currentSpeed: {self.currentSpeed}"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
 
-        text = 'angle: ' + str(self.angle)
+        text = f"angle: {self.angle}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)
 
-        text = 'currentFuelLevel: ' + str(self.currentFuelLevel)
+        text = f"currentFuelLevel: {self.currentFuelLevel}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)
 
-        text = 'currentLoadedQuantity: ' + str(self.currentLoadedQuantity)
+        text = f"currentLoadedQuantity: {self.currentLoadedQuantity}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)
 
@@ -95,25 +95,3 @@ class Vehicle:
 
 
 
-'''
-class Lkw(Vehicle):
-    # Bild laden
-    image_path = "./scr/img/LKW.png"
-    image = pygame.image.load(image_path)
-    # Bild auf die Größe 200x200 skalieren
-    scaled_image = pygame.transform.scale(image, (200, 200))
-    #scaled_image = pygame.transform.rotate(scaled_image, degree)
-
-    def __init__(self):
-        super().__init__()
-
-    def showSpeed(self):
-        print(self.speed)
-
-    def steerCarRight(self):
-        self.rotateImgRight()
-
-    def steerCarLeft(self):
-        self.rotateImgLeft()
-
-'''
