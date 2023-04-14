@@ -3,7 +3,7 @@ import pygame
 import Settings
 
 colorGreen = (0, 255, 0)
-
+#test-alex
 #Schwellenwert für den Gewinn
 thresholdToWin = 80
 class GasStation:
