@@ -43,13 +43,21 @@ class Control:
     def driveKeyboard(self, vehicle):
         # Überprüfe den Status aller Tasten
         keys = pygame.key.get_pressed()
-        # Lenken
-        if keys[pygame.K_LEFT]:
-            vehicle.angleSpeed = self.MAXANGLESPEED
-        elif keys[pygame.K_RIGHT]:
-            vehicle.angleSpeed = -self.MAXANGLESPEED
-        else:
-            vehicle.angleSpeed = 0
+        if vehicle.currentSpeed != 0:
+            # Lenken
+            if keys[pygame.K_LEFT]:
+                vehicle.angleSpeed = self.MAXANGLESPEED
+            elif keys[pygame.K_RIGHT]:
+                vehicle.angleSpeed = -self.MAXANGLESPEED
+            else:
+                vehicle.angleSpeed = 0
+
+            # Winkel des Autos aktualisieren
+            vehicle.angle += vehicle.angleSpeed
+            if vehicle.angle > 360:
+                vehicle.angle = 0
+            elif vehicle.angle < 0:
+                vehicle.angle = 360
 
         # Vorwärts Rückwerts fahren
         if keys[pygame.K_UP]:
@@ -64,12 +72,7 @@ class Control:
         else:
             vehicle.currentSpeed = 0
 
-        # Winkel des Autos aktualisieren
-        vehicle.angle += vehicle.angleSpeed
-        if vehicle.angle > 360:
-            vehicle.angle = 0
-        elif vehicle.angle < 0:
-            vehicle.angle = 360
+
 
         self.update_vehicle_position(vehicle)
 
@@ -88,6 +91,8 @@ class Control:
         mouseLeftClick = pygame.mouse.get_pressed()[0]
         mouseRightClick = pygame.mouse.get_pressed()[2]
 
+
+
         # Vorwärts Rückwerts fahren
         if mouseLeftClick:
             vehicle.fuelConsumption()
@@ -99,14 +104,14 @@ class Control:
             vehicle.currentSpeed = -self.MAXSPEEDBACKWARD
         else:
             vehicle.currentSpeed = 0
+        if vehicle.currentSpeed != 0:
+            #Winkel berechnen
+            delta_x = mousePos[0] - vehicle.currentPosition[0]
+            delta_y = mousePos[1] - vehicle.currentPosition[1]
+            vehicle.angle =  - math.degrees(math.atan2(delta_y, delta_x))
 
-        #Winkel berechnen
-        delta_x = mousePos[0] - vehicle.currentPosition[0]
-        delta_y = mousePos[1] - vehicle.currentPosition[1]
         if Settings.debug:
-         pygame.draw.aaline(Settings.screen, (0, 255, 0), vehicle.currentPosition, mousePos)
-
-        vehicle.angle =  - math.degrees(math.atan2(delta_y, delta_x))
+            pygame.draw.aaline(Settings.screen, (0, 255, 0), vehicle.currentPosition, mousePos)
 
         self.update_vehicle_position(vehicle)
 
@@ -122,6 +127,7 @@ class Control:
         pygame.event.pump()
 
         # Vorwärts fahren
+
         accelerate = pygame.joystick.Joystick(0).get_axis(5)
 
 
@@ -142,7 +148,7 @@ class Control:
             # Geschwindigkeit erhöhen basierend auf der Gaspedalstellung und dem Beschleunigungswert
             vehicle.currentSpeed += self.SPEEDUP
 
-            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 1)
+            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 100)
             # Maximalwert für die Geschwindigkeit beachten
             if vehicle.currentSpeed > self.MAXSPEEDFORWARD:
                 vehicle.currentSpeed = self.MAXSPEEDFORWARD
@@ -150,7 +156,7 @@ class Control:
 
         elif (accelerate == 0) and (driveBackward > 0):
             vehicle.fuelConsumption()
-            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 1)
+            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 100)
             vehicle.currentSpeed  = -self.MAXSPEEDBACKWARD
 
 
@@ -188,29 +194,47 @@ class Control:
     #       Folgen                        #
     #######################################
 
-    def followTruck(self,vehicle, truck):
+    def followTruck(self,heli, truck):
+
         truckPos = truck.currentPosition
 
-        if vehicle.currentPosition != truckPos:
-            vehicle.currentSpeed += self.SPEEDUPHELI
-            if vehicle.currentSpeed >= self.MAXSPEEDFORWARDHELI:
-             vehicle.currentSpeed = self.MAXSPEEDFORWARDHELI
-             vehicle.fuelConsumption()
+        if truck.rotated_image_rect.colliderect(heli.rotated_image_rect):
+            heli.currentPosition[0] = truck.currentPosition[0]
+            heli.currentPosition[1] = truck.currentPosition[1]
+            heli.angle = truck.angle
+            heli.steerVehicle()
+            print("test")
+
         else:
-            vehicle.currentSpeed = 0
 
-        # Winkel berechnen
-        delta_x = truckPos[0] - vehicle.currentPosition[0]
-        delta_y = truckPos[1] - vehicle.currentPosition[1]
-        if Settings.debug:
-            pygame.draw.aaline(Settings.screen, (255, 0, 255), vehicle.currentPosition, truckPos)
 
-        vehicle.angle = - math.degrees(math.atan2(delta_y, delta_x))
-        self.update_vehicle_position(vehicle)
+            if heli.currentPosition == truckPos:
+                heli.currentSpeed = 0
+                heli.angle = truck.angle
+
+                heli.currentPosition
+
+
+            elif heli.currentPosition != truckPos:
+                heli.currentSpeed += self.SPEEDUPHELI
+                if heli.currentSpeed >= self.MAXSPEEDFORWARDHELI:
+                 heli.currentSpeed = self.MAXSPEEDFORWARDHELI
+                 heli.fuelConsumption()
+
+            # Winkel berechnen
+            delta_x = truckPos[0] - heli.currentPosition[0]
+            delta_y = truckPos[1] - heli.currentPosition[1]
+            if Settings.debug:
+                pygame.draw.aaline(Settings.screen, (255, 0, 255), heli.currentPosition, truckPos)
+
+            heli.angle = - math.degrees(math.atan2(delta_y, delta_x))
+
+            self.update_vehicle_position(heli)
 
 
 
     def update_vehicle_position(self,vehicle):
+
         # Bewegungsvektor des Fahrzeugs berechnen
         car_dx = vehicle.currentSpeed * math.cos(math.radians(vehicle.angle))
         car_dy = vehicle.currentSpeed * math.sin(math.radians(vehicle.angle))

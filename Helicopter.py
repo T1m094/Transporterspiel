@@ -88,7 +88,7 @@ class Helicopter(Vehicle):
             #pygame.draw.rect(surf, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
         blitRotate(Settings.screen, self.imageRotor, self.currentPosition, self.imageRotorCenterPoint, self.rotorAngle)
 
-        self.rotorAngle += 5
+        self.rotorAngle += 6
 
 
 

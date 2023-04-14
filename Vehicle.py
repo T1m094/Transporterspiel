@@ -16,6 +16,15 @@ fuelConsumption = Settings.fuelConsumptionTruck
 maxFuelLevel = 100
 
 class Vehicle:
+
+    def draw(self, pos):
+        Settings.screen.blit(self.rotated_image, pos)
+
+        if (Settings.debug):
+            pygame.draw.rect(Settings.screen, (255, 0, 0), (*self.rotated_image_rect.topleft, *self.rotated_image.get_size()), 2)
+            pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0] - 20, self.currentPosition[1]), (self.currentPosition[0] + 20, self.currentPosition[1]), 3)
+            pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0], self.currentPosition[1] - 20), (self.currentPosition[0], self.currentPosition[1] + 20), 3)
+            pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)
     # Fahrzeug lenken
 
     def steerVehicle(self):
