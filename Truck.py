@@ -3,6 +3,7 @@ import math
 import pygame
 
 import Settings
+import View
 from Control import Control
 from Vehicle import Vehicle
 
@@ -36,6 +37,7 @@ class Truck(Vehicle):
 
         self.control = Control(Settings.controllerTruck) #Steuerung <-TODO:
 
+
         #Bild
         # Bild laden
         image_path = "scr/img/LKW.png"
@@ -52,5 +54,7 @@ class Truck(Vehicle):
         self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
     def steering(self):
         return self.control.drive(self)
+
+
 
 

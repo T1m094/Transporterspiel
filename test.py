@@ -1,75 +1,69 @@
 import pygame
 
-import Settings
+pygame.init()
+screen = pygame.display.set_mode((300, 300))
+clock = pygame.time.Clock()
 
 
-class MapView:
-    def __init__(self, map_path, window_width, window_height):
-        self.map_data = pygame.image.load(map_path)  # Karten-Daten laden
-        self.map_width = self.map_data.get_width()
-        self.map_height = self.map_data.get_height()
-        self.window_width = window_width
-        self.window_height = window_height
-        self.zoom = 1.0
-        self.offset_x = 0
-        self.offset_y = 0
-        self.objekte = []  # Liste für GasStation-Objekte
+def blitRotate(surf, image, pos, originPos, angle):
+    # offset from pivot to center
+    image_rect = image.get_rect(topright=(pos[0] - originPos[0], pos[1] - originPos[1]))
+    offset_center_to_pivot = pygame.math.Vector2(pos) - image_rect.center
+
+    # roatated offset from pivot to center
+    rotated_offset = offset_center_to_pivot.rotate(-angle)
+
+    # roatetd image center
+    rotated_image_center = (pos[0] - rotated_offset.x, pos[1] - rotated_offset.y)
+
+    # get a rotated image
+    rotated_image = pygame.transform.rotate(image, angle)
+    rotated_image_rect = rotated_image.get_rect(center=rotated_image_center)
+
+    # rotate and blit the image
+    surf.blit(rotated_image, rotated_image_rect)
+
+    # draw rectangle around the image
+    pygame.draw.rect(surf, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
 
 
-        self.screen = Settings.screen
+def blitRotate2(surf, image, topleft, angle):
+    rotated_image = pygame.transform.rotate(image, angle)
+    new_rect = rotated_image.get_rect(center=image.get_rect(topleft=topleft).center)
+
+    surf.blit(rotated_image, new_rect.topleft)
+    pygame.draw.rect(surf, (255, 0, 0), new_rect, 2)
 
 
-    def addObjekt(self, objekt):
-        self.objekte.append(objekt)
+try:
+    image = pygame.image.load('AirPlaneFront.png')
+except:
+    text = pygame.font.SysFont('Times New Roman', 50).render('image', False, (255, 255, 0))
+    image = pygame.Surface((text.get_width() + 1, text.get_height() + 1))
+    pygame.draw.rect(image, (0, 0, 255), (1, 1, *text.get_size()))
+    image.blit(text, (1, 1))
+w, h = image.get_size()
 
-    def draw_map(self):
-        # Karte mit aktuellem Zoom-Level und Offset auf das Fenster zeichnen
-        scaled_width = int(self.map_width * self.zoom)
-        scaled_height = int(self.map_height * self.zoom)
-        scaled_map = pygame.transform.scale(self.map_data, (scaled_width, scaled_height))
-        self.screen.blit(scaled_map, (self.offset_x, self.offset_y))
+angle = 0
+done = False
+while not done:
+    clock.tick(60)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
 
-    def drawObjects(self):
-        # GasStation-Objekte auf der Karte zeichnen
-        for objekt in self.objekte:
-            gas_station_pos = [objekt.pos[0] * self.zoom + self.offset_x,
-                                objekt.pos[1] * self.zoom + self.offset_y]
-            gas_station_size = [objekt.size[0] * self.zoom, objekt.size[1] * self.zoom]
-            gas_station_rec = pygame.Rect(gas_station_pos, gas_station_size)
-            pygame.draw.rect(self.screen, (0, 0, 255), gas_station_rec, 2)
+    pos = (screen.get_width() / 2, screen.get_height() / 2)
 
-    def update(self):
-        # Fenster aktualisieren
-        pygame.display.flip()
+    screen.fill(0)
+    blitRotate(screen, image, pos, (w / 2, h / 2), angle)
+    # blitRotate2(screen, image, pos, angle)
+    angle -= 0.005
 
-    def run(self):
-        # Haupt-Loop
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
+    pygame.draw.line(screen, (0, 255, 0), (pos[0] - 20, pos[1]), (pos[0] + 20, pos[1]), 3)
+    pygame.draw.line(screen, (0, 255, 0), (pos[0], pos[1] - 20), (pos[0], pos[1] + 20), 3)
+    pygame.draw.circle(screen, (0, 255, 0), pos, 7, 0)
 
-            # Tasten- oder Mausereignisse abfangen
-            keys = pygame.key.get_pressed()
-            mouse_buttons = pygame.mouse.get_pressed()
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            mouse_x -= self.offset_x
-            mouse_y -= self.offset_y
+    pygame.display.flip()
 
-            # Zoom-Level anpassen
-            if keys[K_PLUS] or keys[K_KP_PLUS] or mouse_buttons[4]:  # Zoom in
-                self.zoom += 0.1
-            elif keys[K_MINUS] or keys[K_KP_MINUS] or mouse_buttons[5]:  # Zoom out
-                self.zoom -= 0.1
-                if self.zoom < 0.1:
-                    self.zoom = 0.1
-
-            # Kartenverschiebung (Offset) anpassen
-            if keys[K_LEFT] or mouse_x < 10:  # Nach links bewegen
-                self.offset_x += 10
-            elif keys[K_RIGHT] or mouse_x > self.window_width - 10:  # Nach rechts bewegen
-                self.offset_x -= 10
-            if keys[K_UP] or mouse_y < 10:  #
-
-
+pygame.quit()
+exit()

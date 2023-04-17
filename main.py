@@ -13,6 +13,17 @@ if __name__ == '__main__':
     pygame.init()
     pygame.joystick.init()
 
+#TODO:
+#    - Tankanzeige
+#    - KM/H Anzeige
+#    - Views:
+#       - Hauptmenü
+#       - Optionen
+#       - Ergebnis
+#
+#    - Fahrzeuge nicht aus Spielfeld
+#    - Lenkung nur Gas -> Joysick
+
 
     if pygame.joystick.get_count() != 0:
         joystick = pygame.joystick.Joystick(0)

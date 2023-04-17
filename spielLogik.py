@@ -5,11 +5,13 @@ import Places
 import Settings
 import Truck
 import Helicopter
+import View
 from Control import Control
 from Settings import screen
 
 # Bildschirm Aktualisierungen einstellen
 clock = pygame.time.Clock()
+
 
 
 def spielStart():
@@ -35,6 +37,7 @@ def spielStart():
 
 
 
+    currentAngle = 0
     while gameActiv:
         # Exit
         for event in pygame.event.get():
@@ -71,6 +74,11 @@ def spielStart():
 
         # LKW
         tankFull = lkw.steering()
+
+
+        View.drawLevelDisplay(lkw, currentAngle)
+        currentAngle -= 1
+
 
         # Heli
 
@@ -116,7 +124,7 @@ def spielStart():
 
         # Fenster aktualisieren
         pygame.display.flip()
-        screen.fill((0, 0, 0))
+        screen.fill((255, 255, 255))
 
         # Refresh-Zeiten festlegen
         clock.tick(60)

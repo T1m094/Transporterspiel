@@ -37,7 +37,7 @@ class Helicopter(Vehicle):
         self.maxLoadedQuantity = maxLoadedQuantityHeli
         self.currentLoadedQuantity = 0#<-
 
-        self.control = Control(Settings.controllerHeli) #Steuerung auf Folgen 4<-TODO:
+        self.control = Control(Settings.controllerHeli) #Steuerung auf Folgen 4
 
 
         #Bild
