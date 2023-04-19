@@ -8,12 +8,20 @@ colorGreen = (0, 255, 0)
 thresholdToWin = 80
 
 class Places():
-    def __init__(self, link:str, startposition:tuple, eventRec:tuple) -> None:
+    def __init__(self, link:str, startposition:tuple, eventRec:tuple ) -> None:
         self.image = pygame.image.load(link)
         self.rec = self.image.get_rect()
         self.rec = self.rec.move(startposition)
 
         self.eventRec = pygame.Rect(eventRec)
+
+    def draw(self):
+        # Zeichne Bild
+        Settings.screen.blit(self.image, self.rec)
+
+        if Settings.debug:
+            # Zeichne Aktionsfelder
+            pygame.draw.rect(Settings.screen, (255,0,0), self.eventRec, 1)
 
 class GasStation(Places):
     def __init__(self) -> None:
@@ -21,16 +29,6 @@ class GasStation(Places):
         eventRec = (((position[0] + 50), (position[1] + 105)),(500,100))
         image = "scr/img/places/Tankstelle.png"
         super().__init__(image, position, eventRec)
-
-    def draw(self):
-        # Zeichne Tankstelle
-        Settings.screen.blit(self.image, self.rec)
-
-        if Settings.debug:
-            # Zeichne Aktionsfelder
-            pygame.draw.rect(Settings.screen, (255,0,0), self.eventRec, 1)
-
-
 
     #Prüfe ob getakt wird
     def checkRefuels(self, vehicle):
@@ -44,24 +42,19 @@ class GasStation(Places):
         text_surface = Settings.font.render(str(text), False, colorGreen)
         infoGasStation.append(text_surface)
 
-        text = 'pos: ' + str(self.pos)
+        text = 'pos: ' + str(self.rec)
         text_surface = Settings.font.render(str(text), False, colorGreen)
         infoGasStation.append(text_surface)
 
         return infoGasStation
 
-class oreMine:
-    def __init__(self):
-        self.pos = ((Settings.screen.get_height()/2) + 400, 50)
-        self.size = (400,400)
-        self.rec = pygame.Rect(self.pos, self.size)
+class oreMine(Places):
+    def __init__(self) -> None:
+        position = (0, 0)
+        eventRec = (((position[0] + 170), (position[1] + 10)),(320,130))
+        image = "scr/img/places/Quelle.png"
         self.percentOre = 100
-
-    def draw(self):
-        text = "Quelle"
-        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
-        Settings.screen.blit(text_surface, (self.rec.center))
-        pygame.draw.rect(Settings.screen, (255,0,0), self.rec, 2)
+        super().__init__(image, position, eventRec)
 
     # Prüfen ob LKW an der Miene ist
     # Wenn ja, dann aufladen
@@ -72,8 +65,6 @@ class oreMine:
                  self.percentOre -= 1
                  vehicle.loadOre()
 
-
-
     def debugPrinterArry(self):
         infoOreMine = []
 
@@ -81,7 +72,7 @@ class oreMine:
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
 
-        text = 'pos: ' + str(self.pos)
+        text = 'pos: ' + str(self.rec)
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
 
@@ -91,19 +82,19 @@ class oreMine:
 
         return infoOreMine
 
-class truckDestination:
-    def __init__(self):
-        self.pos = ((Settings.screen.get_height()/2 )+ 400, 550)
-        self.size = (400,400)
-        self.rec = pygame.Rect(self.pos, self.size)
-        self.percentOre = 0
+class truckDestination(Places):
+    def __init__(self) -> None:
+        imageLink = "scr/img/places/Ziel.png"
+        image = pygame.image.load(imageLink)
+        position = ((Settings.screen.get_width() - image.get_width()), (Settings.screen.get_height() - image.get_height()))
+        eventRec = (((position[0] + 500), (position[1] + 200)),(320,300))
+
+
+        self.percentOre = 100
+
+        super().__init__(imageLink, position, eventRec)
 
         self.win = False
-    def draw(self):
-        text = "Ziel"
-        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
-        Settings.screen.blit(text_surface, (self.rec.center))
-        pygame.draw.rect(Settings.screen, (0,255,0), self.rec, 2)
 
     # Prüfen ob LKW im Ziel ist
     # Wenn ja, dann abladen
@@ -128,7 +119,7 @@ class truckDestination:
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoTruckDestination.append(text_surface)
 
-        text = 'pos: ' + str(self.pos)
+        text = 'pos: ' + str(self.rec)
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoTruckDestination.append(text_surface)
 
@@ -142,29 +133,28 @@ class truckDestination:
 
         return infoTruckDestination
 
-class helicopterBase:
-    def __init__(self):
-        self.pos = ((Settings.screen.get_height()/2) + 950, 350)
-        self.size = (500,500)
-        self.rec = pygame.Rect(self.pos, self.size)
+class helicopterBase(Places):
 
-        self.inBase = False
+    def __init__(self) -> None:
+        imageLink = "scr/img/places/hubschrauberlandeplatz.png"
+        image = pygame.image.load(imageLink)
+        position = (Settings.screen.get_width() - 400, 100)
 
-        self.percentOre = 0
-    def draw(self):
-        text = "Hubschrauber Base"
-        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
-        Settings.screen.blit(text_surface, (self.rec.center))
-        pygame.draw.rect(Settings.screen, (255,0,255), self.rec, 2)
+
+        self.percentOre = 100
+
+        super().__init__(imageLink, position, (0,0,0,0))
+        self.eventRec = pygame.Rect(((position[0] - 150),(position[1]  - 100)), (500,500))
+
 
     def checkUnload(self, vehicle):
-        if self.rec.contains(vehicle.rotated_image_rect):
+        if self.eventRec.contains(vehicle.rotated_image_rect):
             if vehicle.currentLoadedQuantity > 0:
                 vehicle.unloadOre()
                 self.percentOre += 1
 
     def checkIfInBase(self, vehicle):
-        if self.rec.contains(vehicle.rotated_image_rect):
+        if self.eventRec.contains(vehicle.rotated_image_rect):
             self.inBase = True
             vehicle.currentFuelLevel = vehicle.maxFuelLevel
             self.percentOre += vehicle.currentLoadedQuantity
@@ -181,7 +171,7 @@ class helicopterBase:
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoHelicopterBase.append(text_surface)
 
-        text = f"pos: {self.pos}"
+        text = f"pos: {self.rec}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoHelicopterBase.append(text_surface)
 
