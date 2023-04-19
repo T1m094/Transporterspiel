@@ -18,11 +18,10 @@ def drawLevelDisplay(vehicle, angelNeedle):
 
 def angleCalculation(vehicle):
     fuleLevel = vehicle.currentFuelLevel
-    # Bereich des Winkels von 0 bis -125
-    angle_range = -125 - 0
-    # Berechnung des Winkels entsprechend des aktuellen Füllstands
+
+    angle_range = -125
     angle = fuleLevel * angle_range / 100
-    # Rückgabe des berechneten Winkels
+
     return angle
 
 

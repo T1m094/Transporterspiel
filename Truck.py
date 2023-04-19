@@ -44,7 +44,7 @@ class Truck(Vehicle):
         image = pygame.image.load(image_path)
         # Bild auf die Größe 200x200 skalieren
         image = pygame.transform.rotate(image, -90)
-        self.image = pygame.transform.scale(image, (300,150)) # 200 200
+        self.image = pygame.transform.scale(image, (150,75)) # 200 200
 
 
 

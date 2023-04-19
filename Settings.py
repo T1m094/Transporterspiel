@@ -82,7 +82,7 @@ elif difficulty == 3:
 # 3 - Joystick
 # 4 - Folgen
 controllerTruck = 1
-controllerHeli = 4
+controllerHeli = 2
 
 
 

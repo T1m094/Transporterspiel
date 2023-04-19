@@ -6,22 +6,35 @@ colorGreen = (0, 255, 0)
 
 #Schwellenwert für den Gewinn
 thresholdToWin = 80
-class GasStation:
-    def __init__(self):
-        self.currentPosition = [20,((Settings.screen.get_height()/2) -100)]
-        self.size = (500,500)
-        self.rec = pygame.Rect(self.currentPosition, self.size)
-        self.image = pygame.image.load("scr/img/Tankestelle.png")
+
+class Places():
+    def __init__(self, link:str, startposition:tuple, eventRec:tuple) -> None:
+        self.image = pygame.image.load(link)
+        self.rec = self.image.get_rect()
+        self.rec = self.rec.move(startposition)
+
+        self.eventRec = pygame.Rect(eventRec)
+
+class GasStation(Places):
+    def __init__(self) -> None:
+        position = (80, 750)
+        eventRec = (((position[0] + 50), (position[1] + 105)),(500,100))
+        image = "scr/img/places/Tankstelle.png"
+        super().__init__(image, position, eventRec)
 
     def draw(self):
-        text = "Tankstelle"
-        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
-        Settings.screen.blit(text_surface, (self.rec.center))
-        pygame.draw.rect(Settings.screen, (0,0,255), self.rec, 2)
+        # Zeichne Tankstelle
+        Settings.screen.blit(self.image, self.rec)
+
+        if Settings.debug:
+            # Zeichne Aktionsfelder
+            pygame.draw.rect(Settings.screen, (255,0,0), self.eventRec, 1)
+
+
 
     #Prüfe ob getakt wird
     def checkRefuels(self, vehicle):
-        if self.rec.contains(vehicle.rotated_image_rect):
+        if self.eventRec.contains(vehicle.rotated_image_rect):
             vehicle.refuel()
 
     def debugPrinterArry(self):
