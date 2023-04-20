@@ -4,15 +4,11 @@ import Settings
 
 colorGreen = (0, 255, 0)
 
-#Schwellenwert für den Gewinn
-thresholdToWin = 80
-
 class Places():
     def __init__(self, link:str, startposition:tuple, eventRec:tuple ) -> None:
         self.image = pygame.image.load(link)
         self.rec = self.image.get_rect()
         self.rec = self.rec.move(startposition)
-
         self.eventRec = pygame.Rect(eventRec)
 
     def draw(self):
@@ -57,7 +53,6 @@ class oreMine(Places):
         super().__init__(image, position, eventRec)
 
     # Prüfen ob LKW an der Miene ist
-    # Wenn ja, dann aufladen
     def checkLoad(self, vehicle):
         if self.rec.contains(vehicle.rotated_image_rect):
             if self.percentOre > 0:
@@ -104,7 +99,7 @@ class truckDestination(Places):
                 vehicle.unloadOre()
                 self.percentOre += 1
 
-            if self.percentOre >= thresholdToWin:
+            if self.percentOre >= Settings.thresholdToWin:
                 return True
 
         return False
@@ -134,7 +129,6 @@ class truckDestination(Places):
         return infoTruckDestination
 
 class helicopterBase(Places):
-
     def __init__(self) -> None:
         imageLink = "scr/img/places/hubschrauberlandeplatz.png"
         image = pygame.image.load(imageLink)
@@ -145,7 +139,6 @@ class helicopterBase(Places):
 
         super().__init__(imageLink, position, (0,0,0,0))
         self.eventRec = pygame.Rect(((position[0] - 150),(position[1]  - 100)), (500,500))
-
 
     def checkUnload(self, vehicle):
         if self.eventRec.contains(vehicle.rotated_image_rect):
@@ -161,7 +154,6 @@ class helicopterBase(Places):
             vehicle.currentLoadedQuantity = 0
         else:
             self.inBase = False
-
 
     # Debug info truckDestination
     def debugPrinterArry(self):
@@ -184,4 +176,3 @@ class helicopterBase(Places):
         infoHelicopterBase.append(text_surface)
 
         return infoHelicopterBase
-

@@ -15,6 +15,10 @@ font = pygame.font.SysFont('Times', 15)
 # 2 - Mittel
 # 3 - Schwer
 
+
+#Schwellenwert für den Gewinn
+thresholdToWin = 80
+
 difficulty = 2
 
 if difficulty == 1:
