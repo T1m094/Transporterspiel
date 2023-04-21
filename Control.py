@@ -203,11 +203,7 @@ class Control:
             heli.currentPosition[1] = truck.currentPosition[1]
             heli.angle = truck.angle
             heli.steerVehicle()
-            print("test")
-
         else:
-
-
             if heli.currentPosition == truckPos:
                 heli.currentSpeed = 0
                 heli.angle = truck.angle

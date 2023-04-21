@@ -12,9 +12,16 @@ from Settings import screen
 # Bildschirm Aktualisierungen einstellen
 clock = pygame.time.Clock()
 
+pygame.font.init()
+
+font = pygame.font.SysFont('Gabriola', 80)
 
 
 def spielStart():
+
+
+    # Hintergrund
+    bgImage = pygame.image.load("scr/img/BG.png")
 
     # Orte
     tankstelle = Places.GasStation()
@@ -53,6 +60,9 @@ def spielStart():
                         Settings.debug = True
 
 
+
+        # Zeichne Hintergrundbild
+        Settings.screen.blit(bgImage, (0,0))
         # Orte
         # Tankstelle
         tankstelle.draw()
@@ -98,6 +108,7 @@ def spielStart():
         if helicopterBase.percentOre >= 20:
             gameOver = True
 
+        View.drawQuantityReached(str(lkwZiel.percentOre), str(helicopterBase.percentOre))
 
         # DEBUGGER
         status = []

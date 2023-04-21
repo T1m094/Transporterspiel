@@ -86,18 +86,13 @@ elif difficulty == 3:
 # 3 - Joystick
 # 4 - Folgen
 controllerTruck = 1
-controllerHeli = 2
-
-
-
-
+controllerHeli = 4
 
 # DEBUGGER
 debugInfoColor = (0,255,0)
 debug = True
 
 debugPrints = True
-
 
 def printDebugInfo(*args):
     if debugPrints:

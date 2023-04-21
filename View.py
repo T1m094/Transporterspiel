@@ -2,6 +2,10 @@ import pygame
 
 import Settings
 
+
+#♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+#♦  Tankanzeige ♦
+#♦♦♦♦♦♦♦♦♦♦♦♦♦♦
 # Lade Bild
 imageFuelScale = pygame.image.load("scr/img/instrumentsDisplay/tanktachometer.png")
 imageFuelScaleNeedle = pygame.image.load("scr/img/instrumentsDisplay/tanknadel.png")
@@ -45,4 +49,27 @@ def blitRotate(surf, image, pos, originPos, angle):
         pygame.draw.line(surf, (0, 255, 0), (pos[0]-20, pos[1]), (pos[0]+20, pos[1]), 3)
         pygame.draw.line(surf, (0, 255, 0), (pos[0], pos[1]-20), (pos[0], pos[1]+20), 3)
         pygame.draw.circle(surf, (0, 255, 0), pos, 7, 0)
+
+# Ausgebe der Anzeige für abgegebenes Erz
+#♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+#♦  Lademenge  ♦
+#♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+pygame.font.init()
+font = pygame.font.SysFont('Times', 40)
+def drawQuantityReached(abgelademengeLkw:str, abgelademengeHeli:str):
+    strViewQuantityReachedLKW = "Abgeladenes Erz: " + abgelademengeLkw
+    strViewQuantityReachedHeli = "Gestohlenes Erz: " + abgelademengeHeli
+
+    textPoint1 = font.render(strViewQuantityReachedLKW, False, (0,0,0))
+    textPoint2 = font.render(strViewQuantityReachedHeli, False, (0,0,0))
+
+    pos1 = ((Settings.screen.get_width()/2), 20)
+    pos2 = ((Settings.screen.get_width()/2), 60)
+
+    textrec1 = textPoint1.get_rect(center=(pos1))
+    textrec2 = textPoint1.get_rect(center=(pos2))
+
+    Settings.screen.blit(textPoint1, textrec1)
+    Settings.screen.blit(textPoint2, textrec2)
+
 

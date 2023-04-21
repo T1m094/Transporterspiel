@@ -85,7 +85,7 @@ class truckDestination(Places):
         eventRec = (((position[0] + 500), (position[1] + 200)),(320,300))
 
 
-        self.percentOre = 100
+        self.percentOre = 0
 
         super().__init__(imageLink, position, eventRec)
 
@@ -135,7 +135,7 @@ class helicopterBase(Places):
         position = (Settings.screen.get_width() - 400, 100)
 
 
-        self.percentOre = 100
+        self.percentOre = 0
 
         super().__init__(imageLink, position, (0,0,0,0))
         self.eventRec = pygame.Rect(((position[0] - 150),(position[1]  - 100)), (500,500))
