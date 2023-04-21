@@ -54,7 +54,7 @@ class oreMine(Places):
 
     # Prüfen ob LKW an der Miene ist
     def checkLoad(self, vehicle):
-        if self.rec.contains(vehicle.rotated_image_rect):
+        if self.eventRec.contains(vehicle.rotated_image_rect):
             if self.percentOre > 0:
                 if vehicle.currentLoadedQuantity < vehicle.maxLoadedQuantity:
                  self.percentOre -= 1
@@ -94,7 +94,7 @@ class truckDestination(Places):
     # Prüfen ob LKW im Ziel ist
     # Wenn ja, dann abladen
     def checkUnload(self, vehicle):
-        if self.rec.contains(vehicle.rotated_image_rect):
+        if self.eventRec.contains(vehicle.rotated_image_rect):
             if vehicle.currentLoadedQuantity > 0:
                 vehicle.unloadOre()
                 self.percentOre += 1

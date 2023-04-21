@@ -55,6 +55,12 @@ class Truck(Vehicle):
     def steering(self):
         return self.control.drive(self)
 
+    # Spritt verbrauchen
+    def fuelConsumption(self):
+        self.currentFuelLevel -= fuelConsumption
 
-
+    # Erz aufladen
+    def loadOre(self):
+        if self.currentLoadedQuantity < self.maxLoadedQuantity:
+            self.currentLoadedQuantity += 1
 

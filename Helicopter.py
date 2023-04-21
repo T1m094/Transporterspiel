@@ -88,10 +88,7 @@ class Helicopter(Vehicle):
             #pygame.draw.rect(surf, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
         blitRotate(Settings.screen, self.imageRotor, self.currentPosition, self.imageRotorCenterPoint, self.rotorAngle)
 
-        self.rotorAngle += 6
-
-
-
+        self.rotorAngle += 9
 
     def flyToBase(self) -> None:
 
@@ -135,3 +132,11 @@ class Helicopter(Vehicle):
                     self.loadOre()
                     truck.unloadOre()
 
+    # Spritt verbrauchen
+    def fuelConsumption(self):
+        self.currentFuelLevel -= fuelConsumptionHeli
+
+    # Erz aufladen
+    def loadOre(self):
+        if self.currentLoadedQuantity < self.maxLoadedQuantity:
+            self.currentLoadedQuantity += 1

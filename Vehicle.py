@@ -4,29 +4,10 @@ import pygame
 
 import Settings
 
-# Eigenschaften LKW
-maxSpeedForward = Settings.maxSpeedForwardTruck
-maxSpeedBackward = Settings.maxSpeedBackwardTruck
-speedUp = Settings.speedUpTruck
-maxAngleSpeed = Settings.maxAngleSpeedTruck
-maxLoadedQuantity = Settings.maxLoadedQuantityTruck
-fuelConsumption = Settings.fuelConsumptionTruck
-
-
 maxFuelLevel = 100
 
 class Vehicle:
-
-    def draw(self, pos):
-        Settings.screen.blit(self.rotated_image, pos)
-
-        if (Settings.debug):
-            pygame.draw.rect(Settings.screen, (255, 0, 0), (*self.rotated_image_rect.topleft, *self.rotated_image.get_size()), 2)
-            pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0] - 20, self.currentPosition[1]), (self.currentPosition[0] + 20, self.currentPosition[1]), 3)
-            pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0], self.currentPosition[1] - 20), (self.currentPosition[0], self.currentPosition[1] + 20), 3)
-            pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)
     # Fahrzeug lenken
-
     def steerVehicle(self):
         # offset from pivot to center
         image_rect = self.image.get_rect(topleft=(self.currentPosition[0] - self.imageCenterPoint[0], self.currentPosition[1] - self.imageCenterPoint[1]))
@@ -42,6 +23,27 @@ class Vehicle:
         self.rotated_image = pygame.transform.rotate(self.image, self.angle)
         self.rotated_image_rect = self.rotated_image.get_rect(center=rotated_image_center)
 
+        # Falls der Rand erreicht wird, soll das Fahrzeug nicht weiter fahren
+        # Links
+        if (self.currentPosition[0] < 0):
+            self.currentSpeed = 0
+            self.currentPosition[0] = self.currentPosition[0] + 10
+
+        # Rechts
+        elif (self.currentPosition[0] > Settings.screen.get_width()):
+            self.currentSpeed = 0
+            self.currentPosition[0] = self.currentPosition[0] - 10
+
+        # Oben
+        elif (self.currentPosition[1] < 0):
+            self.currentSpeed = 0
+            self.currentPosition[1] = self.currentPosition[1] + 10
+
+        # Unten
+        elif (self.currentPosition[1] > Settings.screen.get_height()):
+            self.currentSpeed = 0
+            self.currentPosition[1] = self.currentPosition[1] - 10
+
         # Zeichen und updaten
         Settings.screen.blit(self.rotated_image, self.rotated_image_rect)
 
@@ -53,19 +55,11 @@ class Vehicle:
             pygame.draw.line(Settings.screen, (0, 255, 0), (self.currentPosition[0], self.currentPosition[1] - 20), (self.currentPosition[0], self.currentPosition[1] + 20), 3)
             pygame.draw.circle(Settings.screen, (0, 255, 0), self.currentPosition, 7, 0)
         # ^ FOR DEBUG ^
-    # Spritt verbrauchen
-    def fuelConsumption(self):
-        self.currentFuelLevel -= fuelConsumption
+
     # Erz entladen
     def unloadOre(self):
         if self.currentLoadedQuantity > 0:
             self.currentLoadedQuantity -= 1
-
-
-    # Erz aufladen
-    def loadOre(self):
-        if self.currentLoadedQuantity < self.maxLoadedQuantity:
-            self.currentLoadedQuantity += 1
 
     # Tanken
     def refuel(self):
