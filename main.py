@@ -14,14 +14,14 @@ if __name__ == '__main__':
     pygame.joystick.init()
 
 #TODO:
-#    - Tankanzeige
-#    - KM/H Anzeige
+#    - Tankanzeige <- Ok
+#    - KM/H Anzeige <-?
+#    - Festlegen der Parameter
 #    - Views:
 #       - Hauptmenü
 #       - Optionen
 #       - Ergebnis
-#
-#    - Fahrzeuge nicht aus Spielfeld
+#    - Fahrzeuge nicht aus Spielfeld <- ok
 #    - Lenkung nur Gas -> Joysick
 
 

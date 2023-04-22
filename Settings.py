@@ -19,17 +19,17 @@ font = pygame.font.SysFont('Times', 15)
 #Schwellenwert für den Gewinn
 thresholdToWin = 80
 
-difficulty = 2
+difficulty = 1
 
 if difficulty == 1:
 
     # LKW:
-    maxSpeedForwardTruck = 10
-    maxSpeedBackwardTruck = 3
-    speedUpTruck = 0.03
+    maxSpeedForwardTruck = 20
+    maxSpeedBackwardTruck = 10
+    speedUpTruck = 0.8
     maxAngleSpeedTruck = 3
-    maxLoadedQuantityTruck = 10
-    fuelConsumptionTruck = 0.2
+    maxLoadedQuantityTruck = 15
+    fuelConsumptionTruck = 0.05
 
 
     # Hubschrauber:
@@ -86,7 +86,7 @@ elif difficulty == 3:
 # 3 - Joystick
 # 4 - Folgen
 controllerTruck = 1
-controllerHeli = 4
+controllerHeli = 2
 
 # DEBUGGER
 debugInfoColor = (0,255,0)

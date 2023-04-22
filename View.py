@@ -56,19 +56,24 @@ def blitRotate(surf, image, pos, originPos, angle):
 #♦♦♦♦♦♦♦♦♦♦♦♦♦♦
 pygame.font.init()
 font = pygame.font.SysFont('Times', 40)
-def drawQuantityReached(abgelademengeLkw:str, abgelademengeHeli:str):
+def drawQuantityReached(aufgeladeneMengeLkw:str, abgelademengeLkw:str, abgelademengeHeli:str):
+    strViewCurrentLoadLKW = "Erz im LKW: " + aufgeladeneMengeLkw
     strViewQuantityReachedLKW = "Abgeladenes Erz: " + abgelademengeLkw
     strViewQuantityReachedHeli = "Gestohlenes Erz: " + abgelademengeHeli
 
+    textPoint0 = font.render(strViewCurrentLoadLKW, False, (0,0,0))
     textPoint1 = font.render(strViewQuantityReachedLKW, False, (0,0,0))
     textPoint2 = font.render(strViewQuantityReachedHeli, False, (0,0,0))
 
-    pos1 = ((Settings.screen.get_width()/2), 20)
-    pos2 = ((Settings.screen.get_width()/2), 60)
+    pos0 = ((Settings.screen.get_width()/2), 20)
+    pos1 = ((Settings.screen.get_width()/2), 60)
+    pos2 = ((Settings.screen.get_width()/2), 100)
 
+    textrec0 = textPoint1.get_rect(center=(pos0))
     textrec1 = textPoint1.get_rect(center=(pos1))
     textrec2 = textPoint1.get_rect(center=(pos2))
 
+    Settings.screen.blit(textPoint0, textrec0)
     Settings.screen.blit(textPoint1, textrec1)
     Settings.screen.blit(textPoint2, textrec2)
 

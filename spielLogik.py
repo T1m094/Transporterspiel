@@ -96,11 +96,12 @@ def spielStart():
         heli.checkAndStealOre(lkw)
         helicopterBase.checkIfInBase(heli)
         # Wenn Heli leer oder Voll
-        if ((heli.currentFuelLevel < 0) or (heli.currentLoadedQuantity == heli.maxLoadedQuantity)):
+        if ((heli.currentFuelLevel < 0) or (heli.currentLoadedQuantity == heli.maxLoadedQuantity) or (lkw.currentLoadedQuantity == 0)):
             heli.flyToBase()
         else:
             heli.followTruck(lkw)
 
+        Places.notAllowArea(lkw)
 
         # Stautus und Spielstand
         if not tankFull:
@@ -108,7 +109,7 @@ def spielStart():
         if helicopterBase.percentOre >= 20:
             gameOver = True
 
-        View.drawQuantityReached(str(lkwZiel.percentOre), str(helicopterBase.percentOre))
+        View.drawQuantityReached(str(lkw.currentLoadedQuantity),str(lkwZiel.percentOre), str(helicopterBase.percentOre))
 
         # DEBUGGER
         status = []

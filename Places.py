@@ -4,6 +4,27 @@ import Settings
 
 colorGreen = (0, 255, 0)
 
+
+def notAllowArea(lkw):
+
+    # erstelle ein Rechteck
+    rec = pygame.Rect((400, 200), (200, 200))
+    if rec.colliderect(lkw.rotated_image_rect):
+        if rec.bottom > lkw.rotated_image.top and rec.top < lkw.rotated_image.top:
+            pass
+        elif rec.top < lkw.rotated_image.bottom and rec.bottom > lkw.rotated_image.bottom:
+            pass
+        elif rec.right > lkw.rotated_image_rect.left and rec.left < lkw.rotated_image_rect.left:
+            pass
+        elif rec.left < lkw.rotated_image_rect.right and rec.right > lkw.rotated_image_rect.right:
+            pass
+
+    if Settings.debug:
+    # fülle das Rechteck mit weißer Farbe
+        pygame.draw.rect(Settings.screen, (255, 255, 255), rec)
+
+
+
 class Places():
     def __init__(self, link:str, startposition:tuple, eventRec:tuple ) -> None:
         self.image = pygame.image.load(link)
