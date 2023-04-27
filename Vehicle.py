@@ -58,6 +58,8 @@ class Vehicle:
 
     # Erz entladen
     def unloadOre(self):
+        if Settings.controllerTruck == 3:
+            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 100)
         if self.currentLoadedQuantity > 0:
             self.currentLoadedQuantity -= 1
 

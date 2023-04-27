@@ -123,6 +123,8 @@ class Control:
     #       Steuerung Joysick             #
     #######################################
     def dirveJoysick(self, vehicle):
+
+        pygame.joystick.Joystick(0).rumble(0.5, 0.5, 11)
         # Joystick-Events abfragen
         pygame.event.pump()
 
@@ -148,7 +150,7 @@ class Control:
             # Geschwindigkeit erhöhen basierend auf der Gaspedalstellung und dem Beschleunigungswert
             vehicle.currentSpeed += self.SPEEDUP
 
-            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 100)
+            pygame.joystick.Joystick(0).rumble(0.2, 0.2, 15)
             # Maximalwert für die Geschwindigkeit beachten
             if vehicle.currentSpeed > self.MAXSPEEDFORWARD:
                 vehicle.currentSpeed = self.MAXSPEEDFORWARD
@@ -156,12 +158,11 @@ class Control:
 
         elif (accelerate == 0) and (driveBackward > 0):
             vehicle.fuelConsumption()
-            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 100)
+            pygame.joystick.Joystick(0).rumble(0.2, 0.2, 12)
             vehicle.currentSpeed  = -self.MAXSPEEDBACKWARD
 
 
         else:
-            pygame.joystick.Joystick(0).rumble(0.009, 0.009, 1)
             vehicle.currentSpeed = 0
 
         # Lenkung

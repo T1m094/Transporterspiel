@@ -5,7 +5,7 @@
 
 import pygame
 
-import spielLogik
+import mainMenue
 
 FPS = 60
 # Press the green button in the gutter to run the script.
@@ -14,15 +14,27 @@ if __name__ == '__main__':
     pygame.joystick.init()
 
 #TODO:
-#    - Tankanzeige <- Ok
-#    - KM/H Anzeige <-?
-#    - Festlegen der Parameter
+
 #    - Views:
-#       - Hauptmenü
-#       - Optionen
-#       - Ergebnis
-#    - Fahrzeuge nicht aus Spielfeld <- ok
-#    - Lenkung nur Gas -> Joysick
+#       - Hauptmenü <- ok
+#       - Ergebnis WICHTIG ! 2h
+#       - BevorGameStart <- muss einstellungen übergeben 1h
+#       - Optionen  2h
+
+#    - Festlegen der Parameter
+
+#    - Lenkung nur Gas -> Joysick 30min
+#    - Bug heli 30 min
+#     - Tanken bei Zweispieler aus und selbst zurpück
+
+#    - Bild LKW Voll halb leer 30 min
+
+#    - Sound
+#    - KM/H Anzeige <-?
+
+#Erledigt:
+#    - Tankanzeige
+#    - Fahrzeuge nicht aus Spielfeld
 
 
     if pygame.joystick.get_count() != 0:
@@ -32,7 +44,9 @@ if __name__ == '__main__':
 
     pygame.display.set_caption("Transporterspiel")
 
-    spielLogik.spielStart()
+    mainMenue.mainMenue()
+
+    #spielLogik.spielStart()
 
 
 

@@ -6,22 +6,43 @@ colorGreen = (0, 255, 0)
 
 
 def notAllowArea(lkw):
-
+    rec = []
     # erstelle ein Rechteck
-    rec = pygame.Rect((400, 200), (200, 200))
-    if rec.colliderect(lkw.rotated_image_rect):
-        if rec.bottom > lkw.rotated_image.top and rec.top < lkw.rotated_image.top:
-            pass
-        elif rec.top < lkw.rotated_image.bottom and rec.bottom > lkw.rotated_image.bottom:
-            pass
-        elif rec.right > lkw.rotated_image_rect.left and rec.left < lkw.rotated_image_rect.left:
-            pass
-        elif rec.left < lkw.rotated_image_rect.right and rec.right > lkw.rotated_image_rect.right:
-            pass
+    rec.append( pygame.Rect((0, 150), (270, 120)))
+    rec.append( pygame.Rect((0, 0), (150, 150)))
 
-    if Settings.debug:
-    # fülle das Rechteck mit weißer Farbe
-        pygame.draw.rect(Settings.screen, (255, 255, 255), rec)
+    rec.append( pygame.Rect((130, (Settings.screen.get_height() - 350)), (500, 70)))
+    rec.append( pygame.Rect((100, (Settings.screen.get_height() - 150)), (580, 150)))
+
+    rec.append( pygame.Rect(((Settings.screen.get_width() - 450), (Settings.screen.get_height() - 150)), (580, 150)))
+    rec.append( pygame.Rect(((Settings.screen.get_width() - 300), (Settings.screen.get_height() - 350)), (150, 200)))
+    recCheck(rec, lkw)
+def recCheck(rec, lkw):
+    for i in range(len(rec)):
+        if Settings.debug:
+            # fülle das Rechteck mit weißer Farbe
+            pygame.draw.rect(Settings.screen, (255, 255, 255), rec[i])
+        if rec[i].colliderect(lkw.rotated_image_rect):
+            # Kollisionserkennung
+            overlap = rec[i].clip(lkw.rotated_image_rect)
+            if overlap.width >= overlap.height:
+                if lkw.rotated_image_rect.top < rec[i].top:
+                    # Kollision von oben
+                    lkw.currentPosition[1] -= overlap.height
+                else:
+                    # Kollision von unten
+                    lkw.currentPosition[1] += overlap.height
+            else:
+                if lkw.rotated_image_rect.left < rec[i].left:
+                    # Kollision von links
+                    lkw.currentPosition[0] -= overlap.width
+                else:
+                    # Kollision von rechts
+                    lkw.currentPosition[0] += overlap.width
+
+
+
+
 
 
 
@@ -42,7 +63,7 @@ class Places():
 
 class GasStation(Places):
     def __init__(self) -> None:
-        position = (80, 750)
+        position = (80, (Settings.screen.get_height() - 350))
         eventRec = (((position[0] + 50), (position[1] + 105)),(500,100))
         image = "scr/img/places/Tankstelle.png"
         super().__init__(image, position, eventRec)

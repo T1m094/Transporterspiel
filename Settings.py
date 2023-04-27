@@ -5,6 +5,7 @@ import pygame
 screen = pygame.display.set_mode()
 pygame.font.init()
 font = pygame.font.SysFont('Times', 15)
+fontGuidText = pygame.font.SysFont('Times', 28)
 
 # Settings
 #__________________
@@ -85,7 +86,7 @@ elif difficulty == 3:
 # 2 - Maus
 # 3 - Joystick
 # 4 - Folgen
-controllerTruck = 1
+controllerTruck = 3
 controllerHeli = 2
 
 # DEBUGGER

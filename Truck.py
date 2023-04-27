@@ -61,6 +61,8 @@ class Truck(Vehicle):
 
     # Erz aufladen
     def loadOre(self):
+        if Settings.controllerTruck == 3:
+            pygame.joystick.Joystick(0).rumble(0.5, 0.5, 100)
         if self.currentLoadedQuantity < self.maxLoadedQuantity:
             self.currentLoadedQuantity += 1
 
