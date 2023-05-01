@@ -12,9 +12,9 @@ fontGuidText = pygame.font.SysFont('Times', 28)
 # Vehicle
 
 # Konfiguration des Schwierigkeitsgrads
-# 1 - Leicht
-# 2 - Mittel
-# 3 - Schwer
+# 0 - Leicht
+# 1 - Mittel
+# 2 - Schwer
 
 
 #Schwellenwert für den Gewinn
@@ -22,7 +22,7 @@ thresholdToWin = 80
 
 difficulty = 1
 
-if difficulty == 1:
+if difficulty == 0:
 
     # LKW:
     maxSpeedForwardTruck = 20
@@ -30,7 +30,7 @@ if difficulty == 1:
     speedUpTruck = 0.8
     maxAngleSpeedTruck = 3
     maxLoadedQuantityTruck = 15
-    fuelConsumptionTruck = 0.05
+    fuelConsumptionTruck = 0.1
 
 
     # Hubschrauber:
@@ -42,7 +42,7 @@ if difficulty == 1:
     fuelConsumptionHeli = 0.2
 
 
-elif  difficulty == 2:
+elif  difficulty == 1:
 
     #LKW:
     maxSpeedForwardTruck = 15
@@ -61,7 +61,7 @@ elif  difficulty == 2:
     fuelConsumptionHeli = 0.15
 
 
-elif difficulty == 3:
+elif difficulty == 2:
 
     # LKW:
     maxSpeedForwardTruck = 20
@@ -82,18 +82,18 @@ elif difficulty == 3:
 
 
 # Steuerung für
-# 1 - Tastatur
-# 2 - Maus
-# 3 - Joystick
-# 4 - Folgen
-controllerTruck = 3
-controllerHeli = 2
+# 0 - Tastatur
+# 1 - Maus
+# 2 - Joystick
+# 3 - Folgen
+controllerTruck = 1
+controllerHeli = 4
 
 # DEBUGGER
 debugInfoColor = (0,255,0)
-debug = True
+debug = False
 
-debugPrints = True
+debugPrints = False
 
 def printDebugInfo(*args):
     if debugPrints:

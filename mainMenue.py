@@ -78,7 +78,7 @@ def mainMenue():
         #Text Instruction
         b2 = button(button_x, button_y, 500, 100, "Anleitung", 80, mousePos)
         #Text Settings
-        b3 = button(button_x, (button_y + 120), 500, 100,  "Einstellung", 80, mousePos)
+        b3 = button(button_x, (button_y + 120), 500, 100,  "Einstellungen", 80, mousePos)
         #Text INFO
         b4 = button(button_x, (button_y + 240), 250, 100, "Info", 70, mousePos)
         #Text Exit

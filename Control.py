@@ -18,23 +18,23 @@ class Control:
     MAXANGLESPEEDHELI = Settings.maxAngleSpeedHeli
 
     # Steuerung für
-    # 1 - Tastatur
-    # 2 - Maus
-    # 3 - Joystick
-    # 4 - Folgen
+    # 0 - Tastatur
+    # 1 - Maus
+    # 2 - Joystick
+    # 3 - Folgen
 
     def __init__(self,cotrollType):
         self.cotrollType = cotrollType
 
     def drive(self, vehicle, truck=None):
-        if self.cotrollType == 1:
+        if self.cotrollType == 0:
             self.driveKeyboard(vehicle)
-        elif self.cotrollType == 2:
+        elif self.cotrollType == 1:
             self.driveToPoint(vehicle)
             pass
-        elif self.cotrollType == 3:
+        elif self.cotrollType == 2:
             self.dirveJoysick(vehicle)
-        elif self.cotrollType == 4:
+        elif self.cotrollType == 3:
             self.followTruck(vehicle,truck)
 
     #######################################

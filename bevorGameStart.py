@@ -1,7 +1,8 @@
 import pygame.event
 
 import Settings
-import guidView
+
+import mainMenue
 import spielLogik
 
 '''
@@ -16,6 +17,49 @@ Steuerung
  zurück 
  
 '''
+
+
+def buttonChange(bx, by, laenge, hoehe, text, text_size, mouse):
+    farbe_normal = (140, 133, 97)
+    farbe_aktiv = (217, 210, 173)
+
+    font = pygame.font.SysFont('''Arial Baltic''', text_size)
+    b_l = False
+    b_r = False
+
+    # leftside choice
+    if ((mouse[0] > bx) and (mouse[0] < bx + 60) and (mouse[1] > by) and (mouse[1] < by + hoehe)):
+        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, 60, hoehe))
+        pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, 60, hoehe), 5)
+        b_l = True
+
+    else:
+        pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, 60, hoehe))
+        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, 60, hoehe), 5)
+
+    # Rightside  choice
+    if ((mouse[0] > (bx + laenge - 60)) and (mouse[0] < bx + laenge) and (mouse[1] > by) and (mouse[1] < by + hoehe)):
+        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx + laenge - 60, by, 60, hoehe))
+        pygame.draw.rect(Settings.screen, farbe_normal, (bx + laenge - 60, by, 60, hoehe), 5)
+        b_r = True
+
+    else:
+        pygame.draw.rect(Settings.screen, farbe_normal, (bx + laenge - 60, by, 60, hoehe))
+        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx + laenge - 60, by, 60, hoehe), 5)
+
+    if (b_l or b_r):
+        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx + 65, by, laenge - 65 - 65, hoehe))
+    else:
+        pygame.draw.rect(Settings.screen, farbe_normal, (bx + 65, by, laenge - 65 - 65, hoehe))
+
+    text_surface = font.render(text, True, (0, 0, 0))
+    Settings.screen.blit(text_surface, ((bx + 65), (by + 10)))
+
+    if b_l:
+        return 0
+    if b_r:
+        return 1
+
 def textfield(bx, by, laenge, hoehe, text, text_size):
     farbe_aktiv = (140, 133, 97)
     farbe_normal = (217, 210, 173)
@@ -27,35 +71,8 @@ def textfield(bx, by, laenge, hoehe, text, text_size):
     text_rec = text_surface.get_rect(center=(field.center))
     Settings.screen.blit(text_surface, text_rec)
 
-def button(bx, by, laenge, hoehe, text, text_size, mouse, what):
-    # what 1 ist normaler Button
-    #      2 ist ausgegraut
-    #      3 ist Text
-    font = pygame.font.SysFont('''Arial Baltic''', text_size)
-
-    if what == 1 or 2:
-        if what == 1:
-            farbe_normal = (140, 133, 97)
-            farbe_aktiv = (217, 210, 173)
-        else:
-            farbe_normal = (190, 190, 190)
-            farbe_aktiv = (105, 105, 105)
 
 
-        if (mouse[0] > bx and mouse[0] < bx + laenge and mouse[1] > by and mouse[1] < by + hoehe):
-            button = pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, laenge, hoehe))
-            border = pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, laenge, hoehe), 5)
-            text_surface = font.render(text, True, (0, 0, 0))
-            text_rec = text_surface.get_rect(center=(button.center))
-
-        else:
-            button = pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, laenge, hoehe))
-            border = pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, laenge, hoehe), 5)
-            text_surface = font.render(text, True, (farbe_aktiv))
-            text_rec = text_surface.get_rect(center=(button.center))
-
-        Settings.screen.blit(text_surface, text_rec)
-        return button
 def bevorGameStart():
     button_x = (Settings.screen.get_width() / 2 - 250)
     button_y = (Settings.screen.get_height() / 2 - 50)
@@ -64,24 +81,18 @@ def bevorGameStart():
     #Begin Screen
     screenNumber = 1 #<-----TEST DEFAULT 1
 
+    difficulty = ["Einfach", "Mittel", "Schwer"]
+    difficultyCurrently = 0
+    controlTruck = ["Tastatur", "Maus", "Joystick"]
+    controlTruckCurrently = 0
+    controlHeli= ["Computer", "Tastatur", "Maus", "Joystick"]
+    controlHeliCurrently = 0
+
     logo = pygame.image.load('scr/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
 
 
 
-    '''
-    #Text Start
-    b1 = button(button_x, (button_y - 120), 500, 100, (0, 155, 155), (0, 255, 255), language.tr().M1(1), 80)
-    #Text Instruction
-    b2 = button(button_x, button_y, 500, 100, (0, 155, 155), (0, 255, 255), language.tr().M1(2), 80)
-    #Text Settings
-    b3 = button(button_x, (button_y + 120), 500, 100, (0, 155, 155), (0, 255, 255), language.tr().M1(3), 80)
-    #Text INFO
-    b4 = button(button_x, (button_y + 240), 250, 100, (0, 155, 155), (0, 255, 255), language.tr().M0(6), 70)
-    #Text Exit
-    b0 = button((button_x + 260), (button_y + 240), 240, 100, (0, 155, 155), (0, 255, 255), language.tr().M1(0), 80)
-
-    '''
     pygame.mouse.set_system_cursor(3)
     while True:
         Settings.screen.fill((0, 0, 0))
@@ -105,39 +116,59 @@ def bevorGameStart():
 
         Settings.screen.blit(logo, ((Settings.screen.get_width()/2) - 175, 0))
 
-        #Text Start
-        textfield(button_x - 100, (button_y - 100), 700, 60,  "Schwirgkeitsstufe", 70)
-        #Text Instruction
-        b2 = button(button_x - 100, button_y - 30, 200, 50, "Einfach", 60, mousePos,1)
-        b2 = button(button_x + 150, button_y - 30, 200, 50, "Mittel", 60, mousePos,1)
-        b2 = button(button_x + 400, button_y - 30, 200, 50, "Schwer", 60, mousePos,1)
+        # Schwiergkeitsstufe
+        textfield(button_x - 100, (button_y - 100), 700, 60,  "Schwiergkeitsstufe", 70)
+        difficultyButton =  buttonChange(((Settings.screen.get_width()/2) - 175), button_y - 30, 350, 50, difficulty[difficultyCurrently], 60, mousePos)
 
+        # Steuerung LKW
         textfield(button_x - 100, (button_y + 30), 700, 60,  "Steuerung LKW", 70)
-        b2 = button(button_x - 100, button_y + 100, 200, 50, "Tastatur", 60, mousePos,1)
-        b2 = button(button_x + 150, button_y + 100, 200, 50, "Maus", 60, mousePos,1)
-        b2 = button(button_x + 400, button_y + 100, 200, 50, "Joystick", 60, mousePos,2)
+        controlTruckButton =  buttonChange(((Settings.screen.get_width()/2) - 175), button_y + 100, 350, 50, controlTruck[controlTruckCurrently], 60, mousePos)
 
+        # Steuerung Heli
         textfield(button_x - 100, (button_y + 160), 700, 60, "Steuerung Heli", 70)
+        controlHeliButton =  buttonChange(((Settings.screen.get_width()/2) - 175), button_y + 230, 350, 50, controlHeli[controlHeliCurrently], 60, mousePos)
 
-
-        b2 = button(button_x - 100, button_y + 230, 200, 50, "Tastatur", 60, mousePos,1)
-        b2 = button(button_x + 150, button_y + 230, 200, 50, "Maus", 60, mousePos,1)
-        b2 = button(button_x + 400, button_y + 230, 200, 50, "Joystick", 60, mousePos,1)
-
-        b2 = button(button_x + 150, button_y + 290, 200, 50, "Computer", 50, mousePos,1)
-
-        back = button(button_x - 100, button_y + 400, 200, 80, "Zurück", 70, mousePos,1)
-        go = button(button_x + 200, button_y + 400, 400, 80, "Spiel Starten", 60, mousePos,1)
+        back = mainMenue.button(button_x - 100, button_y + 400, 200, 80, "Zurück", 70, mousePos)
+        go = mainMenue.button(button_x + 200, button_y + 400, 400, 80, "Spiel Starten", 60, mousePos)
         if mouse_clickt:
-            if back.collidepoint(mousePos):
-                return
-            elif go.collidepoint(mousePos):
+            # Schwierigkeitsgrad
+            if (difficultyButton == 0):
+                difficultyCurrently -= 1
+                if difficultyCurrently < 0 :
+                   difficultyCurrently = 2
+            if (difficultyButton == 1):
+                difficultyCurrently += 1
+                if difficultyCurrently > 2:
+                   difficultyCurrently = 0
+
+             # Steuerung LKW
+            if (controlTruckButton == 0):
+                controlTruckCurrently -= 1
+                if controlTruckCurrently < 0 :
+                   controlTruckCurrently = 2
+            if (controlTruckButton == 1):
+                controlTruckCurrently += 1
+                if controlTruckCurrently > 2:
+                   controlTruckCurrently = 0
+
+            # Steuerung Heli
+            if (controlHeliButton == 0):
+                controlHeliCurrently -= 1
+                if controlHeliCurrently < 0 :
+                   controlHeliCurrently = 3
+            if (controlHeliButton == 1):
+                controlHeliCurrently += 1
+                if controlHeliCurrently > 3:
+                   controlHeliCurrently = 0
+            # Start Spiel
+            if go.collidepoint(mousePos):
+                Settings.difficulty = difficultyCurrently
+                Settings.controllerTruck = controlTruckCurrently
+                Settings.controllerHeli = controlHeliCurrently
+
+
                 spielLogik.spielStart()
-            elif b2.collidepoint(mousePos):
-                return
-            elif b3.collidepoint(mousePos):
-                return
-            elif b4.collidepoint(mousePos):
+            if back.collidepoint(mousePos):
                 return
 
         mouse_clickt = False

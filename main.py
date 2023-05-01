@@ -14,7 +14,8 @@ if __name__ == '__main__':
     pygame.joystick.init()
 
 #TODO:
-
+#     - Anleitung überarbeiten !
+#     - Joysick steuerung
 #    - Views:
 #       - Hauptmenü <- ok
 #       - Ergebnis WICHTIG ! 2h
