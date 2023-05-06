@@ -1,5 +1,7 @@
 import pygame.event
 import Settings
+import bevorGameStart
+import mainMenue
 from Templates import *
 
 def gameOverView(status):
@@ -44,15 +46,14 @@ def gameOverView(status):
         frame(((Settings.screen.get_width()/2) - 400), 370, 800, 400, (217, 210, 173), (140, 133, 97), lines)
 
         #Text Start
-        b0 = button(button_x, 800, 500, 100,  "Zurück ins Hauptmenü", 80, mousePos) #TODO: Pos
-        b1 = button(button_x, 800, 500, 100,  "Nochmal Spielen", 80, mousePos) #<- TODO: POS
-
-
-
+        b0 = button(button_x, 800, 500, 100,  "Hauptmenü", 80, mousePos) #TODO: Pos
+        b1 = button(button_x, 950, 500, 100,  "Nochmal Spielen", 80, mousePos) #<- TODO: POS
 
         if mouse_clickt:
+            if b0.collidepoint(mousePos):
+                mainMenue.mainMenue()
             if b1.collidepoint(mousePos):
-                return
+                bevorGameStart.bevorGameStart()
 
         mouse_clickt = False
         pygame.display.flip()

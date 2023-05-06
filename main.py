@@ -5,6 +5,7 @@
 
 import pygame
 
+import gameOverView
 import mainMenue
 
 FPS = 60
@@ -12,26 +13,6 @@ FPS = 60
 if __name__ == '__main__':
     pygame.init()
     pygame.joystick.init()
-
-#TODO:
-#     - Anleitung überarbeiten !
-#     - Joysick steuerung
-#    - Views:
-#       - Hauptmenü <- ok
-#       - Ergebnis WICHTIG ! 2h
-#       - BevorGameStart <- muss einstellungen übergeben 1h
-#       - Optionen  2h
-
-#    - Festlegen der Parameter
-
-#    - Lenkung nur Gas -> Joysick 30min
-#    - Bug heli 30 min
-#     - Tanken bei Zweispieler aus und selbst zurpück
-
-#    - Bild LKW Voll halb leer 30 min
-
-#    - Sound
-#    - KM/H Anzeige <-?
 
 #Erledigt:
 #    - Tankanzeige
@@ -46,6 +27,7 @@ if __name__ == '__main__':
     pygame.display.set_caption("Transporterspiel")
 
     mainMenue.mainMenue()
+
 
     #spielLogik.spielStart()
 

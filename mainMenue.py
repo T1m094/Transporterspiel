@@ -95,7 +95,7 @@ def mainMenue():
             elif b2.collidepoint(mousePos):
                 guidView.guidView()
             elif b3.collidepoint(mousePos):
-                return 3
+                pass
             elif b4.collidepoint(mousePos):
                 Credits.credits()
 
