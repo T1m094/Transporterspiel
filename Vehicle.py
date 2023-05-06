@@ -84,6 +84,10 @@ class Vehicle:
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
 
+        text = f"MaxSpeed: {Settings.maxSpeedForwardTruck[Settings.difficulty]}"
+        text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
+        info.append(text_surface)
+
         text = f"angle: {self.angle}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)

@@ -7,13 +7,15 @@ import View
 from Control import Control
 from Vehicle import Vehicle
 
+
 # Eigenschaften LKW
-maxSpeedForward = Settings.maxSpeedForwardTruck
-maxSpeedBackward = Settings.maxSpeedBackwardTruck
-speedUp = Settings.speedUpTruck
-maxAngleSpeed = Settings.maxAngleSpeedTruck
-maxLoadedQuantity = Settings.maxLoadedQuantityTruck
-fuelConsumption = Settings.fuelConsumptionTruck
+maxSpeedForward = Settings.maxSpeedForwardTruck[Settings.difficulty]
+
+maxSpeedBackward = Settings.maxSpeedBackwardTruck[Settings.difficulty]
+speedUp = Settings.speedUpTruck[Settings.difficulty]
+maxAngleSpeed = Settings.maxAngleSpeedTruck[Settings.difficulty]
+maxLoadedQuantity = Settings.maxLoadedQuantityTruck[Settings.difficulty]
+fuelConsumption = Settings.fuelConsumptionTruck[Settings.difficulty]
 
 class Truck(Vehicle):
     def __init__(self):
@@ -21,9 +23,9 @@ class Truck(Vehicle):
         self.basePosition = 0
         self.currentPosition = [200, 200]
 
-        self.maxSpeedForward = maxSpeedForward
-        self.maxSpeedBackward = maxSpeedBackward
-        self.speedUp = speedUp
+        #self.maxSpeedForward = maxSpeedForward
+        #self.maxSpeedBackward = maxSpeedBackward
+        #self.speedUp = speedUp
         self.currentSpeed = 0 #<-
 
         self.angle = 0 # Min 0 Max 360  Oben=0 Links=90 unten=180 rechts=270 #<-
@@ -53,6 +55,7 @@ class Truck(Vehicle):
         self.imageCenterPoint =[(self.image.get_width()/2),(self.image.get_height()/2)]
         self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
     def steering(self):
+        print(Settings.difficulty)
         return self.control.drive(self)
 
     # Spritt verbrauchen
