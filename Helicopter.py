@@ -8,12 +8,12 @@ from Truck import Truck
 from Vehicle import Vehicle
 
 # Eigenschaften Hubschrauber
-maxSpeedForwardHeli = Settings.maxSpeedForwardHeli      # Maximalgeschwindigkeit Vorwärts
-maxSpeedBackwardHeli = Settings.maxSpeedBackwardHeli    # Maximalgeschwindigkeit Rückwärts
-speedUpHeli = Settings.speedUpHeli                      # Beschleunigung
-maxAngleSpeedHeli = Settings.maxAngleSpeedHeli          # Wendekreis
-maxLoadedQuantityHeli = Settings.maxLoadedQuantityHeli  # Maximale Ladekappazität Hubschrauber
-fuelConsumptionHeli = Settings.fuelConsumptionHeli
+maxSpeedForwardHeli = Settings.maxSpeedForwardHeli[Settings.difficulty]      # Maximalgeschwindigkeit Vorwärts
+maxSpeedBackwardHeli = Settings.maxSpeedBackwardHeli[Settings.difficulty]    # Maximalgeschwindigkeit Rückwärts
+speedUpHeli = Settings.speedUpHeli[Settings.difficulty]                      # Beschleunigung
+maxAngleSpeedHeli = Settings.maxAngleSpeedHeli[Settings.difficulty]          # Wendekreis
+maxLoadedQuantityHeli = Settings.maxLoadedQuantityHeli[Settings.difficulty]  # Maximale Ladekappazität Hubschrauber
+fuelConsumptionHeli = Settings.fuelConsumptionHeli[Settings.difficulty]
 
 class Helicopter(Vehicle):
 

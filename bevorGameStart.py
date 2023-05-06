@@ -1,9 +1,9 @@
 import pygame.event
-
 import Settings
-
+from Templates import *
 import mainMenue
 import spielLogik
+
 
 '''
 Schwirigkeitsgrad
@@ -18,80 +18,20 @@ Steuerung
  
 '''
 
-
-def buttonChange(bx, by, laenge, hoehe, text, text_size, mouse):
-    farbe_normal = (140, 133, 97)
-    farbe_aktiv = (217, 210, 173)
-
-    font = pygame.font.SysFont('''Arial Baltic''', text_size)
-    b_l = False
-    b_r = False
-
-    # leftside choice
-    if ((mouse[0] > bx) and (mouse[0] < bx + 60) and (mouse[1] > by) and (mouse[1] < by + hoehe)):
-        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, 60, hoehe))
-        pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, 60, hoehe), 5)
-        b_l = True
-
-    else:
-        pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, 60, hoehe))
-        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, 60, hoehe), 5)
-
-    # Rightside  choice
-    if ((mouse[0] > (bx + laenge - 60)) and (mouse[0] < bx + laenge) and (mouse[1] > by) and (mouse[1] < by + hoehe)):
-        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx + laenge - 60, by, 60, hoehe))
-        pygame.draw.rect(Settings.screen, farbe_normal, (bx + laenge - 60, by, 60, hoehe), 5)
-        b_r = True
-
-    else:
-        pygame.draw.rect(Settings.screen, farbe_normal, (bx + laenge - 60, by, 60, hoehe))
-        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx + laenge - 60, by, 60, hoehe), 5)
-
-    if (b_l or b_r):
-        pygame.draw.rect(Settings.screen, farbe_aktiv, (bx + 65, by, laenge - 65 - 65, hoehe))
-    else:
-        pygame.draw.rect(Settings.screen, farbe_normal, (bx + 65, by, laenge - 65 - 65, hoehe))
-
-    text_surface = font.render(text, True, (0, 0, 0))
-    Settings.screen.blit(text_surface, ((bx + 65), (by + 10)))
-
-    if b_l:
-        return 0
-    if b_r:
-        return 1
-
-def textfield(bx, by, laenge, hoehe, text, text_size):
-    farbe_aktiv = (140, 133, 97)
-    farbe_normal = (217, 210, 173)
-    font = pygame.font.SysFont('''Arial Baltic''', text_size)
-
-    pygame.draw.rect(Settings.screen, farbe_aktiv, (bx, by, laenge, hoehe))
-    field = pygame.draw.rect(Settings.screen, farbe_normal, (bx, by, laenge, hoehe), 5)
-    text_surface = font.render(text, True, (0, 0, 0))
-    text_rec = text_surface.get_rect(center=(field.center))
-    Settings.screen.blit(text_surface, text_rec)
-
-
-
 def bevorGameStart():
     button_x = (Settings.screen.get_width() / 2 - 250)
     button_y = (Settings.screen.get_height() / 2 - 50)
-
-
-    #Begin Screen
-    screenNumber = 1 #<-----TEST DEFAULT 1
 
     difficulty = ["Einfach", "Mittel", "Schwer"]
     difficultyCurrently = 0
     controlTruck = ["Tastatur", "Maus", "Joystick"]
     controlTruckCurrently = 0
-    controlHeli= ["Computer", "Tastatur", "Maus", "Joystick"]
+    controlHeli= ["Tastatur", "Maus", "Joystick", "Computer"]
     controlHeliCurrently = 0
+
 
     logo = pygame.image.load('scr/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
-
-
 
     pygame.mouse.set_system_cursor(3)
     while True:
@@ -121,7 +61,7 @@ def bevorGameStart():
         difficultyButton =  buttonChange(((Settings.screen.get_width()/2) - 175), button_y - 30, 350, 50, difficulty[difficultyCurrently], 60, mousePos)
 
         # Steuerung LKW
-        textfield(button_x - 100, (button_y + 30), 700, 60,  "Steuerung LKW", 70)
+        textfield(button_x - 100, (button_y + 30), 700, 60, "Steuerung LKW", 70)
         controlTruckButton =  buttonChange(((Settings.screen.get_width()/2) - 175), button_y + 100, 350, 50, controlTruck[controlTruckCurrently], 60, mousePos)
 
         # Steuerung Heli

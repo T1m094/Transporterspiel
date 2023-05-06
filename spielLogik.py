@@ -6,6 +6,7 @@ import Settings
 import Truck
 import Helicopter
 import View
+import gameOverView
 from Control import Control
 from Settings import screen
 
@@ -83,7 +84,8 @@ def spielStart():
         # Fahrzeuge
 
         # LKW
-        tankFull = lkw.steering()
+        lkw.steering()
+
 
 
         View.drawLevelDisplay(lkw, currentAngle)
@@ -104,15 +106,23 @@ def spielStart():
         Places.notAllowArea(lkw)
 
         # Stautus und Spielstand
-        if not tankFull:
+        if lkw.currentFuelLevel < (-10):
             gameOver = True
+            gameOverView.gameOverView(False)
         if helicopterBase.percentOre >= 20:
             gameOver = True
+            gameOverView.gameOverView(False)
+        if lkwZiel.percentOre >= Settings.thresholdToWin:
+            gameOverView.gameOverView(True)
 
         View.drawQuantityReached(str(lkw.currentLoadedQuantity),str(lkwZiel.percentOre), str(helicopterBase.percentOre))
 
         # DEBUGGER
         status = []
+        text = 'difficult: ' + str(Settings.difficulty)
+        text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
+        status.append(text_surface)
+
         text = "__Status__"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         status.append(text_surface)

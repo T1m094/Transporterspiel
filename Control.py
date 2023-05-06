@@ -7,15 +7,15 @@ import main
 
 
 class Control:
-    MAXSPEEDFORWARD = Settings.maxSpeedForwardTruck
-    MAXSPEEDBACKWARD = Settings.maxSpeedBackwardTruck
-    SPEEDUP = Settings.speedUpTruck
-    MAXANGLESPEED = Settings.maxAngleSpeedTruck
+    MAXSPEEDFORWARD = Settings.maxSpeedForwardTruck[Settings.difficulty]
+    MAXSPEEDBACKWARD = Settings.maxSpeedBackwardTruck[Settings.difficulty]
+    SPEEDUP = Settings.speedUpTruck[Settings.difficulty]
+    MAXANGLESPEED = Settings.maxAngleSpeedTruck[Settings.difficulty]
 
-    MAXSPEEDFORWARDHELI = Settings.maxSpeedForwardHeli
-    MAXSPEEDBACKWARDHELI = Settings.maxSpeedBackwardHeli
-    SPEEDUPHELI = Settings.speedUpHeli
-    MAXANGLESPEEDHELI = Settings.maxAngleSpeedHeli
+    MAXSPEEDFORWARDHELI = Settings.maxSpeedForwardHeli[Settings.difficulty]
+    MAXSPEEDBACKWARDHELI = Settings.maxSpeedBackwardHeli[Settings.difficulty]
+    SPEEDUPHELI = Settings.speedUpHeli[Settings.difficulty]
+    MAXANGLESPEEDHELI = Settings.maxAngleSpeedHeli[Settings.difficulty]
 
     # Steuerung für
     # 0 - Tastatur
@@ -28,13 +28,14 @@ class Control:
 
     def drive(self, vehicle, truck=None):
         if self.cotrollType == 0:
+
             self.driveKeyboard(vehicle)
         elif self.cotrollType == 1:
             self.driveToPoint(vehicle)
-            pass
         elif self.cotrollType == 2:
             self.dirveJoysick(vehicle)
         elif self.cotrollType == 3:
+            print("Test")
             self.followTruck(vehicle,truck)
 
     #######################################

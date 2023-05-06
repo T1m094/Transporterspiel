@@ -141,10 +141,7 @@ class truckDestination(Places):
                 vehicle.unloadOre()
                 self.percentOre += 1
 
-            if self.percentOre >= Settings.thresholdToWin:
-                return True
 
-        return False
 
 
 

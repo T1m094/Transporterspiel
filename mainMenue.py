@@ -3,6 +3,7 @@ import pygame.event
 import Settings
 import bevorGameStart
 import guidView
+import Credits
 
 
 def button(bx, by, laenge, hoehe, text, text_size, mouse):
@@ -96,7 +97,7 @@ def mainMenue():
             elif b3.collidepoint(mousePos):
                 return 3
             elif b4.collidepoint(mousePos):
-                return 4
+                Credits.credits()
 
         mouse_clickt = False
         pygame.display.flip()
