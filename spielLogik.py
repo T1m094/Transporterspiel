@@ -5,8 +5,8 @@ import Truck
 import Helicopter
 import View
 import gameOverView
-from Control import Control
 from Settings import screen
+import  src.img.places.hgPic
 
 # Bildschirm Aktualisierungen einstellen
 clock = pygame.time.Clock()
@@ -15,7 +15,7 @@ font = pygame.font.SysFont('Gabriola', 80)
 
 def spielStart():
     # Hintergrund
-    bgImage = pygame.image.load("src/img/BG.png")
+    bgImage = src.img.places.hgPic.bgImage
 
     # Orte
     tankstelle = Places.GasStation()

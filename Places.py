@@ -1,5 +1,11 @@
 import pygame
 import Settings
+
+import src.img.places.zielPic
+import src.img.places.tankePic
+import src.img.places.quellePic
+import src.img.places.hubschrauberlandeplatzPic
+
 colorGreen = (0, 255, 0)
 
 def notAllowArea(lkw):
@@ -37,7 +43,7 @@ def recCheck(rec, lkw):
 
 class Places():
     def __init__(self, link:str, startposition:tuple, eventRec:tuple ) -> None:
-        self.image = pygame.image.load(link)
+        self.image = link
         self.rec = self.image.get_rect()
         self.rec = self.rec.move(startposition)
         self.eventRec = pygame.Rect(eventRec)
@@ -53,7 +59,7 @@ class GasStation(Places):
     def __init__(self) -> None:
         position = (80, (Settings.screen.get_height() - 350))
         eventRec = (((position[0] + 50), (position[1] + 105)),(500,100))
-        image = "src/img/places/Tankstelle.png"
+        image = src.img.places.tankePic.tankeImage
         super().__init__(image, position, eventRec)
 
     #Prüfe ob getakt wird
@@ -75,7 +81,7 @@ class oreMine(Places):
     def __init__(self) -> None:
         position = (0, 0)
         eventRec = (((position[0] + 170), (position[1] + 10)),(320,130))
-        image = "src/img/places/Quelle.png"
+        image = src.img.places.quellePic.quelleImage
         self.percentOre = 100
         super().__init__(image, position, eventRec)
 
@@ -102,12 +108,11 @@ class oreMine(Places):
 
 class truckDestination(Places):
     def __init__(self) -> None:
-        imageLink = "src/img/places/Ziel.png"
-        image = pygame.image.load(imageLink)
+        image = src.img.places.zielPic.zielImage
         position = ((Settings.screen.get_width() - image.get_width()), (Settings.screen.get_height() - image.get_height()))
         eventRec = (((position[0] + 500), (position[1] + 200)),(320,300))
         self.percentOre = 0
-        super().__init__(imageLink, position, eventRec)
+        super().__init__(image, position, eventRec)
         self.win = False
 
     # Prüfen ob LKW im Ziel ist
@@ -142,13 +147,10 @@ class truckDestination(Places):
 
 class helicopterBase(Places):
     def __init__(self) -> None:
-        imageLink = "src/img/places/hubschrauberlandeplatz.png"
-        image = pygame.image.load(imageLink)
+        image = src.img.places.hubschrauberlandeplatzPic.hubschrauberlandeplatzImage
         position = (Settings.screen.get_width() - 400, 100)
-
         self.percentOre = 0
-
-        super().__init__(imageLink, position, (0,0,0,0))
+        super().__init__(image, position, (0,0,0,0))
         self.eventRec = pygame.Rect(((position[0] - 150),(position[1]  - 100)), (500,500))
 
     def checkUnload(self, vehicle):

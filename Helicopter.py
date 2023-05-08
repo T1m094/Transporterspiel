@@ -1,6 +1,8 @@
 import math
 import pygame
 import Settings
+import src.img.heli.heliRotorPic
+import src.img.heli.heliRumpfPic
 from Control import Control
 from Truck import Truck
 from Vehicle import Vehicle
@@ -33,10 +35,8 @@ class Helicopter(Vehicle):
 
         #Bild
         # Bild laden
-        image_path = "src/img/heliRumpf.png"
-        imageRotor_path = "src/img/heliRotor.png"
-        image = pygame.image.load(image_path)
-        imageRotor = pygame.image.load(imageRotor_path)
+        image = src.img.heli.heliRumpfPic.heliRumpfImage
+        imageRotor = src.img.heli.heliRotorPic.helirotorImage
         self.imageRotor = pygame.transform.scale(imageRotor, (300, 300))
 
         # Bild auf die Größe 200x200 skalieren
