@@ -3,7 +3,7 @@ import Settings
 from Templates import *
 import mainMenue
 import spielLogik
-
+import src.img.iconPic
 '''
 Schwierigkeitsgrad
  leicht mittel schwer
@@ -26,7 +26,7 @@ def bevorGameStart():
     controlTruckCurrently = 0
     controlHeli= ["Tastatur", "Maus", "Joystick", "Computer"]
     controlHeliCurrently = 0
-    logo = pygame.image.load('src/img/ICON.png')
+    logo = src.img.iconPic.iconImage
     logo = pygame.transform.scale(logo, (350,350))
 
     pygame.mouse.set_system_cursor(3)

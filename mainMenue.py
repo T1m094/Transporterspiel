@@ -3,6 +3,7 @@ import Settings
 import bevorGameStart
 import guidView
 import Credits
+import src.img.iconPic
 
 def button(bx, by, laenge, hoehe, text, text_size, mouse):
     farbe_normal = (140, 133, 97)
@@ -27,7 +28,7 @@ def mainMenue():
 
     #Begin Screen
     screenNumber = 1 #<-----TEST DEFAULT 1
-    logo = pygame.image.load('src/img/ICON.png')
+    logo = src.img.iconPic.iconImage
     logo = pygame.transform.scale(logo, (350,350))
 
     '''

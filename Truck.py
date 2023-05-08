@@ -4,6 +4,7 @@ import Settings
 import View
 from Control import Control
 from Vehicle import Vehicle
+import src.img.lkw.lkw_leerPic
 
 # Eigenschaften LKW
 maxSpeedForward = Settings.maxSpeedForwardTruck[Settings.difficulty]
@@ -33,8 +34,7 @@ class Truck(Vehicle):
 
         #Bild
         # Bild laden
-        image_path = "src/img/LKW.png"
-        image = pygame.image.load(image_path)
+        image = src.img.lkw.lkw_leerPic.lkw_leerImage
         # Bild auf die Größe 200x200 skalieren
         image = pygame.transform.rotate(image, -90)
         self.image = pygame.transform.scale(image, (150,75)) # 200 200

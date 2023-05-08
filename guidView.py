@@ -1,13 +1,13 @@
 import pygame.event
 import Settings
 from Templates import *
-
+import src.img.iconPic
 def guidView():
     button_x = (Settings.screen.get_width() / 2 - 250)
     button_y = (Settings.screen.get_height() / 2 - 50)
     #Begin Screen
     screenNumber = 1 #<-----TEST DEFAULT 1
-    logo = pygame.image.load('src/img/ICON.png')
+    logo = src.img.iconPic.iconImage
     logo = pygame.transform.scale(logo, (350,350))
 
     guidText = "Das Ziel des Spiels ist es, Erz von der Quelle zum Ziel zu\ntransportieren,ohne dass zu viel gestohlen wird\noder der LKW ohne Benzin liegen bleibt.\nDeshalb vergessen Sie nicht, den nachzutanken\nAchten Sie darauf, dass der Hubschrauber nicht zu viel Erz stiehlt,\nda dies Ihre Karriere beenden kann. Wenn der Hubschrauber\nmehr als 20% der Erzmenge stiehlt, sind Sie gefeuert.\nUm den Auftrag erfolgreich abzuschließen, müssen Sie 80%\noder mehr der Erzmenge sicher zum Ziel transportieren."

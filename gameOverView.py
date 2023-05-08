@@ -3,14 +3,14 @@ import Settings
 import bevorGameStart
 import mainMenue
 from Templates import *
-
+import src.img.iconPic
 def gameOverView(status):
     # status true = gewonnen
     # status false = verloren
     
     button_x = (Settings.screen.get_width() / 2 - 250)
     button_y = (Settings.screen.get_height() / 2 - 50)
-    logo = pygame.image.load('src/img/ICON.png')
+    logo = src.img.iconPic.iconImage
     logo = pygame.transform.scale(logo, (350,350))
     
     if status:

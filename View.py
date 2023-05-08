@@ -1,12 +1,15 @@
 import pygame
 import Settings
+import src.img.instrumentsDisplay.tachoPic
+import src.img.instrumentsDisplay.tanknadelPic
 
 #♦♦♦♦♦♦♦♦♦♦♦♦♦♦
 #♦  Tankanzeige ♦
 #♦♦♦♦♦♦♦♦♦♦♦♦♦♦
 # Lade Bild
-imageFuelScale = pygame.image.load("src/img/instrumentsDisplay/tanktachometer.png")
-imageFuelScaleNeedle = pygame.image.load("src/img/instrumentsDisplay/tanknadel.png")
+imageFuelScale = src.img.instrumentsDisplay.tachoPic.tachoImage
+imageFuelScaleNeedle = src.img.instrumentsDisplay.tanknadelPic.tanknadelImage
+
 pos = (660, Settings.screen.get_height() - imageFuelScale.get_height() - 20)
 posImageFuelScale = (pos[0], pos[1])
 posFuelScaleNeedle = (pos[0] + (imageFuelScale.get_width()/2), pos[1] +  imageFuelScale.get_height() + 20)
