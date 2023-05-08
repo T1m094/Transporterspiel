@@ -33,7 +33,7 @@ def mainMenue():
     #Begin Screen
     screenNumber = 1 #<-----TEST DEFAULT 1
 
-    logo = pygame.image.load('scr/img/ICON.png')
+    logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
 
 

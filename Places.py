@@ -65,7 +65,7 @@ class GasStation(Places):
     def __init__(self) -> None:
         position = (80, (Settings.screen.get_height() - 350))
         eventRec = (((position[0] + 50), (position[1] + 105)),(500,100))
-        image = "scr/img/places/Tankstelle.png"
+        image = "src/img/places/Tankstelle.png"
         super().__init__(image, position, eventRec)
 
     #Prüfe ob getakt wird
@@ -90,7 +90,7 @@ class oreMine(Places):
     def __init__(self) -> None:
         position = (0, 0)
         eventRec = (((position[0] + 170), (position[1] + 10)),(320,130))
-        image = "scr/img/places/Quelle.png"
+        image = "src/img/places/Quelle.png"
         self.percentOre = 100
         super().__init__(image, position, eventRec)
 
@@ -121,7 +121,7 @@ class oreMine(Places):
 
 class truckDestination(Places):
     def __init__(self) -> None:
-        imageLink = "scr/img/places/Ziel.png"
+        imageLink = "src/img/places/Ziel.png"
         image = pygame.image.load(imageLink)
         position = ((Settings.screen.get_width() - image.get_width()), (Settings.screen.get_height() - image.get_height()))
         eventRec = (((position[0] + 500), (position[1] + 200)),(320,300))
@@ -169,7 +169,7 @@ class truckDestination(Places):
 
 class helicopterBase(Places):
     def __init__(self) -> None:
-        imageLink = "scr/img/places/hubschrauberlandeplatz.png"
+        imageLink = "src/img/places/hubschrauberlandeplatz.png"
         image = pygame.image.load(imageLink)
         position = (Settings.screen.get_width() - 400, 100)
 

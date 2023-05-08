@@ -30,7 +30,7 @@ def bevorGameStart():
     controlHeliCurrently = 0
 
 
-    logo = pygame.image.load('scr/img/ICON.png')
+    logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
 
     pygame.mouse.set_system_cursor(3)

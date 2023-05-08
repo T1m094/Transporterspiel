@@ -42,8 +42,8 @@ class Helicopter(Vehicle):
 
         #Bild
         # Bild laden
-        image_path = "scr/img/heliRumpf.png"
-        imageRotor_path = "scr/img/heliRotor.png"
+        image_path = "src/img/heliRumpf.png"
+        imageRotor_path = "src/img/heliRotor.png"
 
         image = pygame.image.load(image_path)
         imageRotor = pygame.image.load(imageRotor_path)
