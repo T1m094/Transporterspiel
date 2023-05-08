@@ -11,7 +11,7 @@ def credits():
     logo = pygame.image.load('scr/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
 
-    guidText = "CREDITS\n_______\nDieses Transporterspiel wurde im Rahmen eines \nLeistungsnachweises für das Lernfeld 08 programmiert.\n\nBilder: https://www.freepik.com/\nLogo: dall e\n\nPorjektleitung: Dr.Schäfer\nProgrammierer: T.Heinz "
+    guidText = "CREDITS\n_______\nDieses Transporterspiel wurde im Rahmen eines \nLeistungsnachweises für das Lernfeld 08 programmiert.\n\nBilder: https://www.freepik.com/\nLogo: dall e\n\nPorjektleitung: Dr.Schäfer\nProgrammierer: T.Heinz, A. Laurenti"
     lines = guidText.splitlines()
 
 
