@@ -26,7 +26,6 @@ def bevorGameStart():
     controlTruckCurrently = 0
     controlHeli= ["Tastatur", "Maus", "Joystick", "Computer"]
     controlHeliCurrently = 0
-
     logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
 
