@@ -4,7 +4,6 @@ from Templates import *
 import mainMenue
 import spielLogik
 
-
 '''
 Schwirigkeitsgrad
  leicht mittel schwer
@@ -21,15 +20,12 @@ Steuerung
 def bevorGameStart():
     button_x = (Settings.screen.get_width() / 2 - 250)
     button_y = (Settings.screen.get_height() / 2 - 50)
-
     difficulty = ["Einfach", "Mittel", "Schwer"]
     difficultyCurrently = 0
     controlTruck = ["Tastatur", "Maus", "Joystick"]
     controlTruckCurrently = 0
     controlHeli= ["Tastatur", "Maus", "Joystick", "Computer"]
     controlHeliCurrently = 0
-
-
     logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
 
@@ -105,8 +101,6 @@ def bevorGameStart():
                 Settings.difficulty = difficultyCurrently
                 Settings.controllerTruck = controlTruckCurrently
                 Settings.controllerHeli = controlHeliCurrently
-
-
                 spielLogik.spielStart()
             if back.collidepoint(mousePos):
                 return

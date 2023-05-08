@@ -10,8 +10,6 @@ def gameOverView(status):
     
     button_x = (Settings.screen.get_width() / 2 - 250)
     button_y = (Settings.screen.get_height() / 2 - 50)
-
-
     logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
     
@@ -24,7 +22,6 @@ def gameOverView(status):
     pygame.mouse.set_system_cursor(3)
     while True:
         Settings.screen.fill((0, 0, 0))
-
         mouse_clickt = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -48,7 +45,6 @@ def gameOverView(status):
         #Text Start
         b0 = button(button_x, 800, 500, 100,  "Hauptmenü", 80, mousePos) #TODO: Pos
         b1 = button(button_x, 950, 500, 100,  "Nochmal Spielen", 80, mousePos) #<- TODO: POS
-
         if mouse_clickt:
             if b0.collidepoint(mousePos):
                 mainMenue.mainMenue()

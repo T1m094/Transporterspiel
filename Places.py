@@ -1,19 +1,14 @@
 import pygame
-
 import Settings
-
 colorGreen = (0, 255, 0)
-
 
 def notAllowArea(lkw):
     rec = []
     # erstelle ein Rechteck
     rec.append( pygame.Rect((0, 150), (270, 120)))
     rec.append( pygame.Rect((0, 0), (150, 150)))
-
     rec.append( pygame.Rect((130, (Settings.screen.get_height() - 350)), (500, 70)))
     rec.append( pygame.Rect((100, (Settings.screen.get_height() - 150)), (580, 150)))
-
     rec.append( pygame.Rect(((Settings.screen.get_width() - 450), (Settings.screen.get_height() - 150)), (580, 150)))
     rec.append( pygame.Rect(((Settings.screen.get_width() - 300), (Settings.screen.get_height() - 350)), (150, 200)))
     recCheck(rec, lkw)
@@ -40,12 +35,6 @@ def recCheck(rec, lkw):
                     # Kollision von rechts
                     lkw.currentPosition[0] += overlap.width
 
-
-
-
-
-
-
 class Places():
     def __init__(self, link:str, startposition:tuple, eventRec:tuple ) -> None:
         self.image = pygame.image.load(link)
@@ -56,7 +45,6 @@ class Places():
     def draw(self):
         # Zeichne Bild
         Settings.screen.blit(self.image, self.rec)
-
         if Settings.debug:
             # Zeichne Aktionsfelder
             pygame.draw.rect(Settings.screen, (255,0,0), self.eventRec, 1)
@@ -75,15 +63,12 @@ class GasStation(Places):
 
     def debugPrinterArry(self):
         infoGasStation = []
-
         text = "__GasStation__"
         text_surface = Settings.font.render(str(text), False, colorGreen)
         infoGasStation.append(text_surface)
-
         text = 'pos: ' + str(self.rec)
         text_surface = Settings.font.render(str(text), False, colorGreen)
         infoGasStation.append(text_surface)
-
         return infoGasStation
 
 class oreMine(Places):
@@ -104,19 +89,15 @@ class oreMine(Places):
 
     def debugPrinterArry(self):
         infoOreMine = []
-
         text = "__oreMine__"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
-
         text = 'pos: ' + str(self.rec)
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
-
         text = 'percentOre: ' + str(self.percentOre)
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         infoOreMine.append(text_surface)
-
         return infoOreMine
 
 class truckDestination(Places):
@@ -125,12 +106,8 @@ class truckDestination(Places):
         image = pygame.image.load(imageLink)
         position = ((Settings.screen.get_width() - image.get_width()), (Settings.screen.get_height() - image.get_height()))
         eventRec = (((position[0] + 500), (position[1] + 200)),(320,300))
-
-
         self.percentOre = 0
-
         super().__init__(imageLink, position, eventRec)
-
         self.win = False
 
     # Prüfen ob LKW im Ziel ist
@@ -140,10 +117,6 @@ class truckDestination(Places):
             if vehicle.currentLoadedQuantity > 0:
                 vehicle.unloadOre()
                 self.percentOre += 1
-
-
-
-
 
     # Debug info truckDestination
     def debugPrinterArry(self):
@@ -172,7 +145,6 @@ class helicopterBase(Places):
         imageLink = "src/img/places/hubschrauberlandeplatz.png"
         image = pygame.image.load(imageLink)
         position = (Settings.screen.get_width() - 400, 100)
-
 
         self.percentOre = 0
 

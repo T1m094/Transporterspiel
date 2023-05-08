@@ -1,7 +1,5 @@
 import math
-
 import pygame
-
 import Settings
 
 maxFuelLevel = 100
@@ -71,31 +69,24 @@ class Vehicle:
     # Debug info LKW
     def debugPrinterArry(self):
         info = []
-
         text = self.name
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
-
         text = f"currentpos: {self.currentPosition}"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
-
         text = f"currentSpeed: {self.currentSpeed}"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
-
         text = f"MaxSpeed: {Settings.maxSpeedForwardTruck[Settings.difficulty]}"
         text_surface = Settings.font.render(str(text) , False, Settings.debugInfoColor)
         info.append(text_surface)
-
         text = f"angle: {self.angle}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)
-
         text = f"currentFuelLevel: {self.currentFuelLevel}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)
-
         text = f"currentLoadedQuantity: {self.currentLoadedQuantity}"
         text_surface = Settings.font.render(str(text), False, Settings.debugInfoColor)
         info.append(text_surface)

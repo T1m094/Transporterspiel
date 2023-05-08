@@ -1,7 +1,5 @@
 import math
-
 import pygame
-
 import Settings
 from Control import Control
 from Truck import Truck
@@ -16,35 +14,27 @@ maxLoadedQuantityHeli = Settings.maxLoadedQuantityHeli[Settings.difficulty]  # M
 fuelConsumptionHeli = Settings.fuelConsumptionHeli[Settings.difficulty]
 
 class Helicopter(Vehicle):
-
     def __init__(self, base):
         self.name = "__Helicopter__"
         self.basePosition = base.rec.center
         #self.currentPosition = [((Settings.screen.get_height()/2) + 850), 350]
         self.currentPosition = [200, 800]
-
         self.maxSpeedForward = maxSpeedForwardHeli
         self.maxSpeedBackward = maxSpeedBackwardHeli
         self.speedUp = speedUpHeli
         self.currentSpeed = 0 #<-
-
         self.angle = 0 # Min 0 Max 360  Oben=0 Links=90 unten=180 rechts=270 #<-
         self.angleSpeed = maxAngleSpeedHeli
-
         self.maxFuelLevel = 100 #<-
         self.currentFuelLevel = 100 #<-
-
         self.maxLoadedQuantity = maxLoadedQuantityHeli
         self.currentLoadedQuantity = 0#<-
-
         self.control = Control(Settings.controllerHeli) #Steuerung auf Folgen 4
-
 
         #Bild
         # Bild laden
         image_path = "src/img/heliRumpf.png"
         imageRotor_path = "src/img/heliRotor.png"
-
         image = pygame.image.load(image_path)
         imageRotor = pygame.image.load(imageRotor_path)
         self.imageRotor = pygame.transform.scale(imageRotor, (300, 300))
@@ -56,16 +46,11 @@ class Helicopter(Vehicle):
         #Bild Mitte
         self.imageCenterPoint =[(self.image.get_width()/2) + 60,(self.image.get_height()/2)]
         self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
-
         self.imageRotorCenterPoint =[(self.imageRotor.get_width()/2),(self.imageRotor.get_height()/2)]
         self.rotatedRotor_image_rect = pygame.Rect(self.currentPosition, (self.imageRotor.get_width(), self.imageRotor.get_height()))
-
         self.rotorAngle = 0
 
-
     def rotorSpins(self):
-
-
         def blitRotate(surf, image, pos, originPos, angle):
             # offset from pivot to center
             image_rect = image.get_rect(topleft=(pos[0] - originPos[0], pos[1] - originPos[1]))
@@ -87,13 +72,10 @@ class Helicopter(Vehicle):
             # draw rectangle around the image
             #pygame.draw.rect(surf, (255, 0, 0), (*rotated_image_rect.topleft, *rotated_image.get_size()), 2)
         blitRotate(Settings.screen, self.imageRotor, self.currentPosition, self.imageRotorCenterPoint, self.rotorAngle)
-
         self.rotorAngle += 9
 
     def flyToBase(self) -> None:
-
         basePosition = self.basePosition
-
         if self.currentPosition != basePosition:
             self.currentSpeed += self.speedUp
             if self.currentSpeed >= self.maxSpeedForward:
@@ -107,7 +89,6 @@ class Helicopter(Vehicle):
         delta_y = basePosition[1] - self.currentPosition[1]
         if Settings.debug:
             pygame.draw.aaline(Settings.screen, (255, 0, 255), self.currentPosition, basePosition)
-
         self.angle = - math.degrees(math.atan2(delta_y, delta_x))
 
         # Bewegungsvektor des Helis berechnen
@@ -118,9 +99,8 @@ class Helicopter(Vehicle):
         self.currentPosition[0] += car_dx
         self.currentPosition[1] -= car_dy
         self.steerVehicle()
-
         self.rotorSpins()
-
+        
     def followTruck(self,truck: Truck):
         self.control.drive(self, truck)
         self.rotorSpins()

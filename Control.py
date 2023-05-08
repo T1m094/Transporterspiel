@@ -1,10 +1,7 @@
 import math
-
 import pygame
-
 import Settings
 import main
-
 
 class Control:
     MAXSPEEDFORWARD = Settings.maxSpeedForwardTruck[Settings.difficulty]
@@ -73,8 +70,6 @@ class Control:
         else:
             vehicle.currentSpeed = 0
 
-
-
         self.update_vehicle_position(vehicle)
 
         if vehicle.currentFuelLevel > 0:
@@ -91,8 +86,6 @@ class Control:
         mousePos = pygame.mouse.get_pos()
         mouseLeftClick = pygame.mouse.get_pressed()[0]
         mouseRightClick = pygame.mouse.get_pressed()[2]
-
-
 
         # Vorwärts Rückwerts fahren
         if mouseLeftClick:
@@ -124,21 +117,17 @@ class Control:
     #       Steuerung Joysick             #
     #######################################
     def dirveJoysick(self, vehicle):
-
         pygame.joystick.Joystick(0).rumble(0.5, 0.5, 11)
+
         # Joystick-Events abfragen
         pygame.event.pump()
 
         # Vorwärts fahren
-
         accelerate = pygame.joystick.Joystick(0).get_axis(5)
-
 
         # Berechne den Schwellenwert basierend auf dem aktuellen Wert
         accelerate = int((accelerate + 1) * 50)
         accelerate = accelerate / 10
-
-
         driveBackward = pygame.joystick.Joystick(0).get_axis(4)
 
         # Berechne den Schwellenwert basierend auf dem aktuellen Wert
@@ -156,13 +145,10 @@ class Control:
             if vehicle.currentSpeed > self.MAXSPEEDFORWARD:
                 vehicle.currentSpeed = self.MAXSPEEDFORWARD
 
-
         elif (accelerate == 0) and (driveBackward > 0):
             vehicle.fuelConsumption()
             pygame.joystick.Joystick(0).rumble(0.2, 0.2, 12)
             vehicle.currentSpeed  = -self.MAXSPEEDBACKWARD
-
-
         else:
             vehicle.currentSpeed = 0
 
@@ -183,23 +169,18 @@ class Control:
             vehicle.angle = 0
         elif vehicle.angle < 0:
             vehicle.angle = 360
-
         self.update_vehicle_position(vehicle)
-
         if vehicle.currentFuelLevel > 0:
             return True
         else:
             return False
-
 
     #######################################
     #       Folgen                        #
     #######################################
 
     def followTruck(self,heli, truck):
-
         truckPos = truck.currentPosition
-
         if truck.rotated_image_rect.colliderect(heli.rotated_image_rect):
             heli.currentPosition[0] = truck.currentPosition[0]
             heli.currentPosition[1] = truck.currentPosition[1]
@@ -209,9 +190,7 @@ class Control:
             if heli.currentPosition == truckPos:
                 heli.currentSpeed = 0
                 heli.angle = truck.angle
-
                 heli.currentPosition
-
 
             elif heli.currentPosition != truckPos:
                 heli.currentSpeed += self.SPEEDUPHELI
@@ -224,21 +203,15 @@ class Control:
             delta_y = truckPos[1] - heli.currentPosition[1]
             if Settings.debug:
                 pygame.draw.aaline(Settings.screen, (255, 0, 255), heli.currentPosition, truckPos)
-
             heli.angle = - math.degrees(math.atan2(delta_y, delta_x))
-
             self.update_vehicle_position(heli)
-
-
-
-    def update_vehicle_position(self,vehicle):
-
+            
         # Bewegungsvektor des Fahrzeugs berechnen
+    def update_vehicle_position(self,vehicle):
         car_dx = vehicle.currentSpeed * math.cos(math.radians(vehicle.angle))
         car_dy = vehicle.currentSpeed * math.sin(math.radians(vehicle.angle))
 
         # Position des Fahrzeugs aktualisieren
         vehicle.currentPosition[0] += car_dx
         vehicle.currentPosition[1] -= car_dy
-
         vehicle.steerVehicle()
