@@ -7,7 +7,7 @@ def credits():
     button_y = (Settings.screen.get_height() / 2 - 50)
     logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
-    guidText = "CREDITS\n_______\nDieses Transporterspiel wurde im Rahmen eines \nLeistungsnachweises für das Lernfeld 08 programmiert.\n\nBilder: https://www.freepik.com/\nLogo: dall e\n\nPorjektleitung: Dr.Schäfer\nProgrammierer: T.Heinz, A. Laurenti"
+    guidText = "CREDITS\n_______\nDieses Transporterspiel wurde im Rahmen eines \nLeistungsnachweises für das Lernfeld 08 programmiert.\n\nBilder: https://www.freepik.com/\nLogo: dall e\n\nPorjektleitung: Dr.Schäfer\nProgrammierer: T.Heinz, A. Laurenti, J. Jajszczok "
     lines = guidText.splitlines()
 
     '''
