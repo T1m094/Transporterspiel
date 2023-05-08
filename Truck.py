@@ -42,7 +42,7 @@ class Truck(Vehicle):
 
         #Bild
         # Bild laden
-        image_path = "scr/img/LKW.png"
+        image_path = "src/img/LKW.png"
         image = pygame.image.load(image_path)
         # Bild auf die Größe 200x200 skalieren
         image = pygame.transform.rotate(image, -90)

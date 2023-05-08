@@ -22,7 +22,7 @@ def spielStart():
 
 
     # Hintergrund
-    bgImage = pygame.image.load("scr/img/BG.png")
+    bgImage = pygame.image.load("src/img/BG.png")
 
     # Orte
     tankstelle = Places.GasStation()

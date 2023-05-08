@@ -12,7 +12,7 @@ def gameOverView(status):
     button_y = (Settings.screen.get_height() / 2 - 50)
 
 
-    logo = pygame.image.load('scr/img/ICON.png')
+    logo = pygame.image.load('src/img/ICON.png')
     logo = pygame.transform.scale(logo, (350,350))
     
     if status:
