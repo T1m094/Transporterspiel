@@ -1,6 +1,4 @@
-# Schleife Hauptprogramm
 import pygame
-
 import Places
 import Settings
 import Truck
@@ -12,15 +10,10 @@ from Settings import screen
 
 # Bildschirm Aktualisierungen einstellen
 clock = pygame.time.Clock()
-
 pygame.font.init()
-
 font = pygame.font.SysFont('Gabriola', 80)
 
-
 def spielStart():
-
-
     # Hintergrund
     bgImage = pygame.image.load("src/img/BG.png")
 
@@ -39,12 +32,8 @@ def spielStart():
     gameOver = False
     tankFull = True
 
-
     # solange die Variable True ist, soll das Spiel laufen
     gameActiv = True
-
-
-
     currentAngle = 0
     while gameActiv:
         # Exit
@@ -59,8 +48,6 @@ def spielStart():
                     else:
                         Settings.debugPrints = True
                         Settings.debug = True
-
-
 
         # Zeichne Hintergrundbild
         Settings.screen.blit(bgImage, (0,0))
@@ -80,20 +67,12 @@ def spielStart():
         # Helicopter Base
         helicopterBase.draw()
 
-
         # Fahrzeuge
-
-        # LKW
         lkw.steering()
-
-
-
         View.drawLevelDisplay(lkw, currentAngle)
         currentAngle -= 1
 
-
         # Heli
-
         # Prüft ob Heli klauen kann und klaut
         heli.checkAndStealOre(lkw)
         helicopterBase.checkIfInBase(heli)
@@ -102,7 +81,6 @@ def spielStart():
             heli.flyToBase()
         else:
             heli.followTruck(lkw)
-
         Places.notAllowArea(lkw)
 
         # Stautus und Spielstand
@@ -142,7 +120,6 @@ def spielStart():
 
         if Settings.debugPrints:
             Settings.printDebugInfo(lkw.debugPrinterArry(), heli.debugPrinterArry(), erzMine.debugPrinterArry(), lkwZiel.debugPrinterArry(), helicopterBase.debugPrinterArry(), status)
-
 
         # Fenster aktualisieren
         pygame.display.flip()

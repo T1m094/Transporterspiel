@@ -1,32 +1,21 @@
 import pygame
 
-
 #   Display
 screen = pygame.display.set_mode()
 pygame.font.init()
 font = pygame.font.SysFont('Times', 15)
 fontGuidText = pygame.font.SysFont('Times', 28)
 
-# Settings
-#__________________
-# Vehicle
-
-# Konfiguration des Schwierigkeitsgrads
-# 0 - Leicht
-# 1 - Mittel
-# 2 - Schwer
-
 #Schwellenwert für den Gewinn
 thresholdToWin = 80
-
 global difficulty
 difficulty = 0
+
 # Test Array
 maxSpeedForwardTruck = [20, 15]
 maxSpeedBackwardTruck = [10]
 speedUpTruck = [1]
 maxAngleSpeedTruck = [3]
-
 maxLoadedQuantityTruck = [15]
 fuelConsumptionTruck = [0.1]
 
