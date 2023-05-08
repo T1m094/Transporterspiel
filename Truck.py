@@ -45,7 +45,6 @@ class Truck(Vehicle):
         self.rotated_image_rect = pygame.Rect(self.currentPosition, (self.image.get_width(), self.image.get_height()))
         
     def steering(self):
-        print(Settings.difficulty)
         return self.control.drive(self)
 
     # Spritt verbrauchen
