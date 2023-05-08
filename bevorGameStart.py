@@ -5,7 +5,7 @@ import mainMenue
 import spielLogik
 
 '''
-Schwirigkeitsgrad
+Schwierigkeitsgrad
  leicht mittel schwer
 Steuerung
  Tastatur|Maus|Joystick <= Wenn vorhanden

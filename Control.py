@@ -32,7 +32,6 @@ class Control:
         elif self.cotrollType == 2:
             self.dirveJoysick(vehicle)
         elif self.cotrollType == 3:
-            print("Test")
             self.followTruck(vehicle,truck)
 
     #######################################
