@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='QuGame',
+    name='Transporterspiel',
     version='1.0.0',
     packages=[''],
     url='',
