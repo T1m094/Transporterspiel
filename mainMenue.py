@@ -1,3 +1,5 @@
+import sys
+
 import pygame.event
 import Settings
 import bevorGameStart
@@ -82,7 +84,7 @@ def mainMenue():
 
         if mouse_clickt:
             if b0.collidepoint(mousePos):
-                quit()
+                return
             elif b1.collidepoint(mousePos):
                 bevorGameStart.bevorGameStart()
             elif b2.collidepoint(mousePos):

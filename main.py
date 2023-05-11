@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 import gameOverView
 import mainMenue
@@ -12,3 +14,5 @@ if __name__ == '__main__':
         joystick.init()
     pygame.display.set_caption("Transporterspiel")
     mainMenue.mainMenue()
+    pygame.quit()
+    sys.exit()
